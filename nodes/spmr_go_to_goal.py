@@ -11,8 +11,8 @@ from nav_msgs.msg import Odometry
 from std_msgs.msg import Float32, Bool
 
 
-from spmr02.nodes.src import goal_controller
-from spmr02.nodes.src import pose
+from src import goal_controller
+from src import pose
 
 
 import actionlib

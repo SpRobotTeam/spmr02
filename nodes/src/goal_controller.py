@@ -1,6 +1,6 @@
 from __future__ import division, print_function
 from math import pi, sqrt, sin, cos, atan2
-from spmr02.nodes.src import pose
+from src import pose
 #import rospy
 
 class GoalController:
