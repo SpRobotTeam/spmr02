@@ -40,7 +40,8 @@
             respawn="true" output="screen"/>  
       <!-- <node name="diff_drive_canopen" pkg="diff_drive" type="diff_drive_canopen" 
             respawn="true" output="screen"/>   -->
-
+      <!-- <node name="diff_drive_canopen" pkg="diff_drive" type="diff_drive_canopen" 
+            respawn="true" output="screen"/>   -->
 
   <!-- <node name="right_wheel_link_tf"
         pkg="tf"
