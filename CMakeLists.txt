@@ -23,6 +23,7 @@ catkin_install_python(
         nodes/spmr_go_to_goal
         nodes/spmr_PathFind
         nodes/spmr_canopen
+
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 catkin_python_setup()

@@ -1,6 +1,6 @@
 from __future__ import division, print_function
 from math import pi, sqrt, sin, cos, atan2
-from spmr02.nodes.src import pose
+from . import pose as posepose
 #import rospy
 
 class GoalController:
@@ -69,7 +69,7 @@ class GoalController:
         return d < self.linear_tolerance and dTh < self.angular_tolerance
 
     def get_velocity(self, cur, goal, dT):
-        desired = Pose()
+        desired = posepose.Pose()
 
         goal_heading = atan2(goal.y - cur.y, goal.x - cur.x)
         a = -cur.theta + goal_heading

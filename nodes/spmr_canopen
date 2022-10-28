@@ -5,7 +5,7 @@ import rospy
 from geometry_msgs.msg import Twist
 from std_msgs.msg import Int32
 
-from spmr02.nodes.src import src
+from spmr02.nodes.src import can
 from spmr02.nodes.src import controller
 
 class ControllerNode:
@@ -57,8 +57,8 @@ class ControllerNode:
             self.leftPub.publish(int(speeds.left))
             self.rightPub.publish(int(speeds.right))
 
-            src.LW_Move(speeds.left / 2)
-            src.RW_Move(speeds.right / 2)
+            can.LW_Move(speeds.left / 2)
+            can.RW_Move(speeds.right / 2)
             # src.Monitor_Val()
 
 
@@ -76,13 +76,13 @@ class ControllerNode:
         # print("input x", twist.linear.x)
         # print("input z", twist.angular.z)
 
-src.Dir_Op()
+can.Dir_Op()
 
 if __name__ == '__main__':
     try:
         node = ControllerNode()
-        # src.Syn_STOP()
-        src.Dir_Op()
+        # can.Syn_STOP()
+        can.Dir_Op()
         node.main()
     except rospy.ROSInterruptException:
         pass

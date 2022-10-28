@@ -11,9 +11,8 @@ from nav_msgs.msg import Odometry
 from std_msgs.msg import Float32, Bool
 
 
-from spmr02.nodes.src import goal_controller
-from spmr02.nodes.src import pose
-
+from src import goal_controller
+from src import pose
 
 import actionlib
 from diff_drive.msg import GoToPoseAction, GoToPoseGoal, GoToPoseResult
@@ -50,9 +49,9 @@ class GoToGoalNode:
         self.rate = rospy.Rate(rate)
         self.dT = 1 / rate
 
-        self.kP = rospy.get_param('~kP', 20.0)  # 3.0 30.0 15.0
-        self.kA = rospy.get_param('~kA', 200.0) # 8.0 120.0
-        self.kB = rospy.get_param('~kB', -3.0)  #-1.5 -10.5 -50.5 -1.0
+        self.kP = rospy.get_param('~kP',      3.0)      # 3.0   30.0    15.0    20.0    20.0
+        self.kA = rospy.get_param('~kA',      8.0)      # 8.0   120.0   120.0   120.0   200.0
+        self.kB = rospy.get_param('~kB',     -1.5)      #-1.5   -10.5   -50.5   -1.0    -3.0
         self.controller.set_constants(self.kP, self.kA, self.kB)
 
         self.controller.set_linear_tolerance(
@@ -95,6 +94,8 @@ class GoToGoalNode:
 
         success = True
         while not rospy.is_shutdown() and self.goal is not None:
+            print("01. self.goal :", self.goal)
+            print("02. self.action_server.is_preempt_requested() :", self.action_server.is_preempt_requested())
         # while not rospy.is_shutdown():
             # Allow client to preempt the goal.
             if self.action_server.is_preempt_requested():
@@ -120,8 +121,7 @@ class GoToGoalNode:
         if self.controller.at_goal(self.pose, self.goal):
             desired = pose.Pose()
         else:
-            desired = self.controller.get_velocity(self.pose, self.goal,
-                                                   self.dT)
+            desired = self.controller.get_velocity(self.pose, self.goal, self.dT)
 
         if self.goal is not None \
            and (desired.xVel!=0.0 or desired.thetaVel!=0.0):
@@ -137,6 +137,7 @@ class GoToGoalNode:
         self.send_velocity(desired.xVel, desired.thetaVel)
 
         # Forget the goal if achieved.
+        print("03. self.controller.at_goal(self.pose, self.goal) :", self.controller.at_goal(self.pose, self.goal))
         if self.controller.at_goal(self.pose, self.goal):
             rospy.loginfo('Goal achieved')
             self.goal = None
