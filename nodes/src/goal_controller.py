@@ -1,6 +1,6 @@
 from __future__ import division, print_function
 from math import pi, sqrt, sin, cos, atan2
-from diff_drive.pose import Pose
+from spmr02.nodes.src import pose
 #import rospy
 
 class GoalController:
@@ -26,10 +26,10 @@ class GoalController:
         self.kP = kP
         self.kA = kA
         self.kB = kB
-
+        
     def set_max_linear_speed(self, speed):
         self.max_linear_speed = speed
-
+        
     def set_min_linear_speed(self, speed):
         self.min_linear_speed = speed
 

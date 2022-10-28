@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 from __future__ import division
 
 import math
@@ -6,15 +6,17 @@ import rospy
 import std_msgs.msg
 from math import pi, asin, acos
 from tf.transformations import euler_from_quaternion, quaternion_from_euler
-from geometry_msgs.msg import Twist, PoseStamped
+from geometry_msgs.msg import Twist, PoseStamped, Pose, Point
 from nav_msgs.msg import Odometry
 from std_msgs.msg import Float32, Bool
-import actionlib
 
-from diff_drive import goal_controller
-from diff_drive import pose
+
+from spmr02.nodes.src import goal_controller
+from spmr02.nodes.src import pose
+
+
+import actionlib
 from diff_drive.msg import GoToPoseAction, GoToPoseGoal, GoToPoseResult
-from geometry_msgs.msg import Twist, PoseStamped, Pose, Point
 
 class GoToGoalNode:
 
@@ -33,33 +35,30 @@ class GoToGoalNode:
         self.action_client = actionlib.SimpleActionClient(
             'diff_drive_go_to_goal', GoToPoseAction)
 
-
         self.dist_pub = rospy.Publisher('~distance_to_goal', Float32, queue_size=10)
         self.twist_pub = rospy.Publisher('test_mr/cmd_val', Twist, queue_size=10)
         self.goal_achieved_pub = rospy.Publisher('goal_achieved', Bool, queue_size=1)
-
         # self.Next_poi = rospy.Publisher('move_base_simple/goal', PoseStamped, queue_size=1)
-
 
         self.node_name = rospy.get_name()
         rospy.loginfo("{0} started".format(self.node_name))
 
         rospy.Subscriber('odom', Odometry, self.on_odometry)
         rospy.Subscriber('move_base_simple/goal', PoseStamped, self.on_goal)
-        
+
         rate = rospy.get_param('~rate', 10.0)
         self.rate = rospy.Rate(rate)
         self.dT = 1 / rate
 
-        self.kP = rospy.get_param('~kP', 20.0)    # 3.0 30.0 15.0
-        self.kA = rospy.get_param('~kA', 200.0)    # 8.0 120.0
+        self.kP = rospy.get_param('~kP', 20.0)  # 3.0 30.0 15.0
+        self.kA = rospy.get_param('~kA', 200.0) # 8.0 120.0
         self.kB = rospy.get_param('~kB', -3.0)  #-1.5 -10.5 -50.5 -1.0
         self.controller.set_constants(self.kP, self.kA, self.kB)
 
         self.controller.set_linear_tolerance(
-            rospy.get_param('~linear_tolerance', 0.025))
+            rospy.get_param('~linear_tolerance', 0.025))        # 2.5cm
         self.controller.set_angular_tolerance(
-            rospy.get_param('~angular_tolerance', 1/180*pi))
+            rospy.get_param('~angular_tolerance', 1/180*pi))    # 1 degrees
 
         self.controller.set_max_linear_speed(
             rospy.get_param('~max_linear_speed', 1.2))
@@ -124,13 +123,13 @@ class GoToGoalNode:
             desired = self.controller.get_velocity(self.pose, self.goal,
                                                    self.dT)
 
-        # if self.goal is not None \
-        #    and (desired.xVel!=0.0 or desired.thetaVel!=0.0):
-        #     rospy.loginfo(
-        #         'current=(%f,%f,%f) goal=(%f,%f,%f)  xVel=%f thetaVel=%f',
-        #         self.pose.x, self.pose.y, self.pose.theta,
-        #         self.goal.x, self.goal.y, self.goal.theta,
-        #         desired.xVel, desired.thetaVel)
+        if self.goal is not None \
+           and (desired.xVel!=0.0 or desired.thetaVel!=0.0):
+            rospy.loginfo(
+                'current=(%f,%f,%f) goal=(%f,%f,%f)  xVel=%f thetaVel=%f',
+                self.pose.x, self.pose.y, self.pose.theta,
+                self.goal.x, self.goal.y, self.goal.theta,
+                desired.xVel, desired.thetaVel)
 
         d = self.controller.get_goal_distance(self.pose, self.goal)
         self.dist_pub.publish(d)
@@ -145,7 +144,7 @@ class GoToGoalNode:
             msg.data = True
             self.goal_achieved_pub.publish(msg)
         else:
-            # rospy.loginfo('Goal going')
+            rospy.loginfo('Goal going')
             msg = Bool()
             msg.data = False
             self.goal_achieved_pub.publish(msg)
