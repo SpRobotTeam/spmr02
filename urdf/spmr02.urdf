@@ -89,14 +89,14 @@
   </link>
   <joint name="right_wheel_joint" type="continuous">
     <origin
-      xyz="0 0.40407 0"
+      xyz="0 0.40407 -0.001"
       rpy="1.5708 0 -1.5708" />
     <parent
       link="base_link" />
     <child
       link="right_wheel_link" />
     <axis
-      xyz="1 0 0" />
+      xyz="-1 0 0" />
   </joint>
   <link name="left_wheel_link">
     <inertial>
@@ -139,7 +139,7 @@
   </link>
   <joint name="left_wheel_joint" type="continuous">
     <origin
-      xyz="0 -0.40407 0"
+      xyz="0 -0.40407 -0.001"
       rpy="1.5708 0 1.5708" />
     <parent
       link="base_link" />
@@ -250,7 +250,6 @@
   </joint>
 
   <gazebo>
-
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/spmr02</robotNamespace></plugin>
 
