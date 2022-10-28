@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 from __future__ import division
 from ast import AsyncFunctionDef
 
@@ -10,8 +10,8 @@ from tf.transformations import quaternion_from_euler
 from geometry_msgs.msg import Twist, PoseStamped, Pose, Point
 from std_msgs.msg import Float32, Bool
 
-from diff_drive import logW as log
-from diff_drive import env
+from spmr02.nodes.src import logW as log
+from spmr02.nodes.src import env
 
 import math
 import heapq

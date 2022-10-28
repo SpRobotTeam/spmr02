@@ -5,9 +5,8 @@ import rospy
 from geometry_msgs.msg import Twist
 from std_msgs.msg import Int32
 
-import src
-
-from diff_drive import controller
+from spmr02.nodes.src import src
+from spmr02.nodes.src import controller
 
 class ControllerNode:
 
