@@ -3,39 +3,28 @@
 <robot name="spmr02">
 
   <link name="base_link">
+
     <inertial>
-      <origin
-        xyz="-0.036333 0.086193 0"
-        rpy="0 0 0" />
-      <mass value="50" />
-      <inertia
-        ixx="1.9204"
-        ixy="0"
-        ixz="0"
-        iyy="4.7207"
-        iyz="0"
-        izz="3.0624" />
+      <origin xyz="0.036333 0.000032 0.086193" rpy="0 0 0"/>
+      <mass value="50"/>
+      <inertia ixx="1.9204" ixy="0.0" ixz="-0.0004014" iyy="3.0624" iyz="0.0" izz="4.7207"/>
     </inertial>
+
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://spmr02/meshes/base_link.STL" />
+        <mesh filename="package://spmr02/meshes/base_link.STL"/>
       </geometry>
-      <material
-        name="">
-        <color rgba="0.75294 0.75294 0.75294 1" />
+      <material name="">
+        <color rgba="0.75294 0.75294 0.75294 1.0"/>
       </material>
     </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://spmr02/meshes/base_link.STL" />
-      </geometry>
 
+    <collision>
+      <origin  xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://spmr02/meshes/base_link.STL"/>
+      </geometry>
       <surface>
         <friction>
           <ode>
@@ -44,41 +33,29 @@
           </ode>
         </friction>
       </surface>
-
     </collision>
+
   </link>
+
+
 
   <link name="right_wheel_link">
     <inertial>
-      <origin
-        xyz="-0.026126 0 0"
-        rpy="0 0 0" />
-      <mass
-        value="2.0043" />
-      <inertia
-        ixx="0.020935"
-        ixy="0"
-        ixz="0"
-        iyy="0.010841"
-        iyz="0"
-        izz="0.010841" />
+      <origin xyz="0.83427 0 0" rpy="0 0 0" />
+      <mass value="2.0043" />
+      <inertia ixx="0.020935" ixy="0.0" ixz="0.0" iyy="0.010841" iyz="0.0" izz="0.010841"/>
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://spmr02/meshes/right_wheel_link.STL" />
-      </geometry>
-      <material
-        name="">
+        <mesh filename="filename=package://spmr02/meshes/right_wheel_link.STL"/>
+      </geometry>>
+      <material name="">
         <color rgba="0.75294 0.75294 0.75294 1" />
       </material>
     </visual>
     <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <mesh filename="package://spmr02/meshes/right_wheel_link.STL" />
       </geometry>
@@ -86,20 +63,16 @@
   </link>
 
   <joint name="right_wheel_joint" type="continuous">
-    <origin
-      xyz="0 0.40407 -0.001"
-      rpy="1.5708 0 -1.5708" />
+    <origin xyz="0 0.40407 0" rpy="1.5708 0 -1.5708" />
     <parent link="base_link" />
     <child link="right_wheel_link" />
-    <axis xyz="-1 0 0" />
+    <axis xyz="1 0 0" />
   </joint>
 
 
   <link name="left_wheel_link">
     <inertial>
-      <origin
-        xyz="-0.026126 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0.83427 0 0" rpy="0 0 0" />
       <mass value="2.0043" />
       <inertia
         ixx="0.020935"
@@ -110,9 +83,7 @@
         izz="0.010841" />
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <mesh filename="package://spmr02/meshes/left_wheel_link.STL" />
       </geometry>
@@ -121,9 +92,7 @@
       </material>
     </visual>
     <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <mesh filename="package://spmr02/meshes/left_wheel_link.STL" />
       </geometry>
@@ -131,9 +100,7 @@
   </link>
 
   <joint name="left_wheel_joint" type="continuous">
-    <origin
-      xyz="0 -0.40407 -0.001"
-      rpy="1.5708 0 1.5708" />
+    <origin xyz="0 -0.40407 0" rpy="1.5708 0 1.5708" />
     <parent link="base_link" />
     <child link="left_wheel_link" />
     <axis xyz="1 0 0" />
@@ -141,58 +108,7 @@
 
   <link name="RF_scan_link">
     <inertial>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <mass
-        value="1" />
-      <inertia
-        ixx="0"
-        ixy="0"
-        ixz="0"
-        iyy="0"
-        iyz="0"
-        izz="0" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://spmr02/meshes/RF_scan_link.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.75294 0.75294 0.75294 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://spmr02/meshes/RF_scan_link.STL" />
-      </geometry>
-    </collision>
-  </link>
-
-  <joint name="RF_scan_joint" type="fixed">
-    <origin
-      xyz="-0.63018 0.50694 -0.10141"
-      rpy="-1.5708 0 0.7854" />
-    <parent link="base_link" />
-    <child link="RF_scan_link" />
-    <axis xyz="0 0 0" />
-  </joint>
-
-  <link name="LR_scan_link">
-    <inertial>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0.17357 -0.079376 -1.5775" rpy="0 0 0" />
       <mass value="1" />
       <inertia
         ixx="0"
@@ -203,9 +119,44 @@
         izz="0" />
     </inertial>
     <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://spmr02/meshes/RF_scan_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://spmr02/meshes/RF_scan_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="RF_scan_joint" type="fixed">
+    <origin xyz="-0.63018 0.50694 -0.10141" rpy="-1.5708 0 0.7854" />
+    <parent link="base_link" />
+    <child link="RF_scan_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+
+  <link name="LR_scan_link">
+    <inertial>
+      <origin xyz="0.20435 -0.079376 -1.5302" rpy="0 0 0" />
+      <mass value="1" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <mesh filename="package://spmr02/meshes/LR_scan_link.STL" />
       </geometry>
@@ -214,9 +165,7 @@
       </material>
     </visual>
     <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <mesh filename="package://spmr02/meshes/LR_scan_link.STL" />
       </geometry>
@@ -224,46 +173,37 @@
   </link>
 
   <joint name="LR_scan_joint" type="fixed">
-    <origin
-      xyz="0.61848 -0.45171 -0.10141"
-      rpy="-1.5708 0 -2.3562" />
+    <origin xyz="0.61848 -0.45171 -0.10141" rpy="-1.5708 0 -2.3562" />
     <parent link="base_link" />
     <child link="LR_scan_link" />
     <axis xyz="0 0 0" />
   </joint>
 
   <gazebo>
+
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-        <robotNamespace>/spmr02</robotNamespace>
-    </plugin>
+      <robotNamespace>/spmr02</robotNamespace></plugin>
 
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
-        <alwaysOn>true</alwaysOn>
-        <updateRate>100</updateRate>
-        <leftJoint>left_wheel_joint</leftJoint>
-        <rightJoint>right_wheel_joint</rightJoint>
-        <torque>200</torque>
-        <commandTopic>test_mr/cmd_val</commandTopic>
-        <odometryTopic>/odom</odometryTopic>
-        <odometryFrame>odom</odometryFrame>
-        <rosDebugLevel>1</rosDebugLevel>
-        <publishWheelTF>false</publishWheelTF>
-        <publishOdomTF>true</publishOdomTF>
-        <publishWheelJointState>false</publishWheelJointState>
-        <wheelAcceleration>3</wheelAcceleration>
-        <wheelTorque>500</wheelTorque>
-        <odometrySource>world</odometrySource>
-        <publishTf>1</publishTf>
-        <robotBaseFrame>base_link</robotBaseFrame>
-        <wheelSeparation>0.8</wheelSeparation>
-        <wheelDiameter>0.265</wheelDiameter>
-    </plugin>
-
-
-
-    
-
-
+      <alwaysOn>true</alwaysOn>
+      <updateRate>100</updateRate>
+      <leftJoint>left_wheel_joint</leftJoint>
+      <rightJoint>right_wheel_joint</rightJoint>
+      <torque>200</torque>
+      <commandTopic>test_mr/cmd_val</commandTopic>
+      <odometryTopic>/odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <rosDebugLevel>1</rosDebugLevel>
+      <publishWheelTF>false</publishWheelTF>
+      <publishOdomTF>true</publishOdomTF>
+      <publishWheelJointState>false</publishWheelJointState>
+      <wheelAcceleration>3</wheelAcceleration>
+      <wheelTorque>500</wheelTorque>
+      <odometrySource>world</odometrySource>
+      <publishTf>1</publishTf>
+      <robotBaseFrame>base_link</robotBaseFrame>
+      <wheelSeparation>0.8</wheelSeparation>
+      <wheelDiameter>0.265</wheelDiameter></plugin>
 
   </gazebo>
 
