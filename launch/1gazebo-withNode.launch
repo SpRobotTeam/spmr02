@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+
+      <arg name="x_pos" default="0.0"/>
+      <arg name="y_pos" default="0.0"/>
+      <arg name="z_pos" default="1.0"/>
+
+      <!-- <include file="$(find spmr02)/launch/nodes.launch"/> -->
+      <include file="$(find gazebo_ros)/launch/empty_world.launch">
+            <arg name="world_name" value="$(find test_mr)/worlds/room.world"/>
+            <arg name="paused" value="false"/>
+            <arg name="use_sim_time" value="true"/>
+            <arg name="gui" value="true"/>
+            <arg name="headless" value="false"/>
+            <arg name="debug" value="false"/>
+      </include>
+      <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf 
+                                                                        -model spmr02 
+                                                                        -x $(arg x_pos)
+                                                                        -y $(arg y_pos)
+                                                                        -z $(arg z_pos)
+                                                                        -param robot_description" />
+
+      <rosparam file="$(find spmr02)/config/controller_common.yaml" command="load"/>
+      <rosparam file="$(find spmr02)/config/pid.yaml"               command="load"/>
+      <param name="robot_description" textfile="$(find spmr02)/urdf/spmr02.urdf" />
+
+</launch>

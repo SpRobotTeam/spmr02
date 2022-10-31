@@ -55,9 +55,9 @@ class GoToGoalNode:
         self.rate = rospy.Rate(rate)
         self.dT = 1 / rate
 
-        self.kP = rospy.get_param('~kP',      3.0)      # 3.0   30.0    15.0    20.0    20.0
-        self.kA = rospy.get_param('~kA',      8.0)      # 8.0   120.0   120.0   120.0   200.0
-        self.kB = rospy.get_param('~kB',     -1.5)      #-1.5   -10.5   -50.5   -1.0    -3.0
+        self.kP = rospy.get_param('~kP',      20.0)      # 3.0   30.0    15.0    20.0    20.0
+        self.kA = rospy.get_param('~kA',     200.0)      # 8.0   120.0   120.0   120.0   200.0
+        self.kB = rospy.get_param('~kB',      -3.0)      #-1.5   -10.5   -50.5   -1.0    -3.0
         self.controller.set_constants(self.kP, self.kA, self.kB)
 
         self.controller.set_linear_tolerance(
