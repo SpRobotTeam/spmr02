@@ -298,11 +298,12 @@
 </gazebo>
 
   <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/spmr02</robotNamespace></plugin>
-
+    <!-- <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>spmr02</robotNamespace>
+    </plugin> -->
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
-      <commandTopic>test_mr/cmd_val</commandTopic>
+      <!-- <commandTopic>test_mr/cmd_val</commandTopic> -->
+      <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>/odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
       <odometrySource>world</odometrySource>
@@ -316,10 +317,11 @@
       <rightJoint>right_wheel_joint</rightJoint>
       <wheelSeparation>0.8</wheelSeparation>
       <wheelDiameter>0.265</wheelDiameter>
-      <wheelAcceleration>3</wheelAcceleration>
+      <wheelAcceleration>30</wheelAcceleration>
       <wheelTorque>500</wheelTorque>
       <!-- <rosDebugLevel>1</rosDebugLevel> -->
       <rosDebugLevel>na</rosDebugLevel>
+      
     </plugin>
   </gazebo>
 </robot>
