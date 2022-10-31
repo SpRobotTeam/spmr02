@@ -5,7 +5,9 @@ import rospy
 from geometry_msgs.msg import Twist
 from std_msgs.msg import Int32
 
-from spmr02.nodes.src import controller
+import sys
+sys.path.append('/home/tang/catkin_ws/src/spmr02/nodes/src')
+import controller
 
 class ControllerNode:
 

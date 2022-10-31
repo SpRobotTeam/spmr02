@@ -1,7 +1,4 @@
-"""
-Env 2D
-@author: huiming zhou
-"""
+#! /usr/bin/env python3
 
 
 class Env:

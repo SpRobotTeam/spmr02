@@ -1,6 +1,7 @@
+#! /usr/bin/env python3
 from __future__ import division, print_function
 from math import pi, sqrt, sin, cos, atan2
-from . import pose as posepose
+import pose as posepose
 #import rospy
 
 class GoalController:

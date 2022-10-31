@@ -10,8 +10,10 @@ from tf.transformations import quaternion_from_euler
 from geometry_msgs.msg import Twist, PoseStamped, Pose, Point
 from std_msgs.msg import Float32, Bool
 
-from spmr02.nodes.src import logW as log
-from spmr02.nodes.src import env
+import sys
+sys.path.append('/home/tang/catkin_ws/src/spmr02/nodes/src')
+import logW as log
+import env
 
 import math
 import heapq

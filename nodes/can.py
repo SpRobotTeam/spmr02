@@ -1,24 +1,9 @@
-####### canopen ######
-# import canopen
-# Start with creating a network representing one CAN bus
-# network = canopen.Network()
-# Add some nodes with corresponding Object Dictionaries
-# node = canopen.RemoteNode(6, '/path/to/object_dictionary.eds')
-# network.add_node(node)
-
-# Connect to the CAN bus
-# Arguments are passed to python-can's can.Bus() constructor
-# (see https://python-can.readthedocs.io/en/latest/bus.html).
-# network.connect()
-# network.connect(bustype='socketcan', channel='can0')
-# network.connect(bustype='kvaser', channel=0, bitrate=250000)
-# network.connect(bustype='pcan', channel='PCAN_USBBUS1', bitrate=1000000)
-
+#! /usr/bin/env python3
 
 from cgi import test
 import canopen
 import time
-    
+
 # Start with creating a network representing one CAN bus
 network = canopen.Network()
 

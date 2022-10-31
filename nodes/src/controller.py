@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 from __future__ import division
 
 class MotorCommand:
@@ -7,7 +8,7 @@ class MotorCommand:
     def __init__(self):
         self.left = 0
         self.right = 0
-        
+
 
 class Controller:
     """Determines motor speeds to accomplish a desired motion.

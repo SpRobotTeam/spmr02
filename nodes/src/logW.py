@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 import rospy
 
 def log_write(log_data):
