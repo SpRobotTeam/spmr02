@@ -1,18 +1,20 @@
 <launch>
 
       <arg name="x_pos" default="0.0"/>
-      <arg name="y_pos" default="0.0"/>
+      <arg name="y_pos" default="-5.0"/>
       <arg name="z_pos" default="1.0"/>
 
       <arg name="ticks_per_meter" value="76.433" />
       <arg name="wheel_separation" value="0.566" />
-      <!-- <arg name="namespace" default="$(arg tf_prefix)" doc="Namespace to push all topics into."/> -->
-      <remap from="/joint_states"                   to="/joint_states" />
-      <remap from="/mobile_base_controller/cmd_vel" to="/cmd_vel" />
-      <remap from="/mobile_base_controller/odom"    to="/odom" />
-
+      <!-- <arg name="tf_prefix" default="" doc="tf_prefix to be used by gazebo plugins and in the robot's urdf etc." />
+      <arg name="namespace" default="$(arg tf_prefix)" doc="Namespace to push all topics into."/> -->
+      <!-- <group ns="$(arg namespace)">
+            <remap from="$(arg namespace)/joint_states"                   to="$(arg namespace)/mir/joint_states" />
+            <remap from="$(arg namespace)/mobile_base_controller/cmd_vel" to="$(arg namespace)/cmd_vel" />
+            <remap from="$(arg namespace)/mobile_base_controller/odom"    to="$(arg namespace)/odom" />
+      </group> -->
       <include file="$(find gazebo_ros)/launch/empty_world.launch">
-            <!-- <arg name="world_name" value="$(find test_mr)/worlds/room.world"/> -->
+            <arg name="world_name" value="$(find spmr02)/worlds/turtlebot3_house.world"/>
             <arg name="paused" value="false"/>
             <arg name="use_sim_time" value="true"/>
             <arg name="gui" value="true"/>
@@ -20,15 +22,7 @@
             <arg name="debug" value="false"/>
       </include>  
   
-      <node pkg="gazebo_ros" 
-            type="spawn_model" 
-            name="spawn_urdf" 
-            args="-urdf 
-                  -model spmr02 
-                  -x $(arg x_pos)
-                  -y $(arg y_pos)
-                  -z $(arg z_pos)
-                  -param robot_description" />
+      <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model spmr02 -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
 
       <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
 
@@ -42,7 +36,7 @@
       <node name="diff_drive_controller" pkg="diff_drive" type="diff_drive_controller" 
             respawn="true" output="screen"/>  
       <node name="diff_drive_PathFind" pkg="diff_drive" type="diff_drive_PathFind" 
-            respawn="true" output="screen"/>   -->
+            respawn="true" output="screen"/>   -->    
       <!-- <node name="diff_drive_canopen" pkg="diff_drive" type="diff_drive_canopen" 
             respawn="true" output="screen"/>   -->
 
