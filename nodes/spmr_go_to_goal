@@ -12,8 +12,6 @@ from std_msgs.msg import Float32, Bool
 
 import sys
 sys.path.append('/home/tang/catkin_ws/src/spmr02/nodes/src')
-
-
 import goal_controller
 import pose
 
@@ -41,7 +39,7 @@ class GoToGoalNode:
             'diff_drive_go_to_goal', GoToPoseAction)
 
         self.dist_pub = rospy.Publisher('~distance_to_goal', Float32, queue_size=10)
-        self.twist_pub = rospy.Publisher('test_mr/cmd_val', Twist, queue_size=10)
+        self.twist_pub = rospy.Publisher('spmr/cmd_val', Twist, queue_size=10)
         self.goal_achieved_pub = rospy.Publisher('goal_achieved', Bool, queue_size=1)
         # self.Next_poi = rospy.Publisher('move_base_simple/goal', PoseStamped, queue_size=1)
 

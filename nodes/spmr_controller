@@ -26,7 +26,7 @@ class ControllerNode:
         self.nodeName = rospy.get_name()
         rospy.loginfo("{0} started".format(self.nodeName))
 
-        rospy.Subscriber("/test_mr/cmd_val", Twist, self.twistCallback)
+        rospy.Subscriber("/spmr/cmd_val", Twist, self.twistCallback)
 
         self.ticksPerMeter = float(rospy.get_param('~ticks_per_meter', 76.433))
         self.wheelSeparation = float(rospy.get_param('~wheel_separation', 0.4))
