@@ -1,11 +1,15 @@
 <launch>
 
-      <arg name="x_pos" default="1.0"/>
-      <arg name="y_pos" default="1.0"/>
+      <arg name="x_pos" default="0.0"/>
+      <arg name="y_pos" default="0.0"/>
       <arg name="z_pos" default="1.0"/>
 
       <arg name="ticks_per_meter" value="76.433" />
       <arg name="wheel_separation" value="0.566" />
+      <!-- <arg name="namespace" default="$(arg tf_prefix)" doc="Namespace to push all topics into."/> -->
+      <remap from="/joint_states"                   to="/joint_states" />
+      <remap from="/mobile_base_controller/cmd_vel" to="/cmd_vel" />
+      <remap from="/mobile_base_controller/odom"    to="/odom" />
 
       <include file="$(find gazebo_ros)/launch/empty_world.launch">
             <!-- <arg name="world_name" value="$(find test_mr)/worlds/room.world"/> -->
@@ -21,36 +25,39 @@
             name="spawn_urdf" 
             args="-urdf 
                   -model spmr02 
-                  -x $(arg x_pos)       
-                  -y $(arg y_pos) 
-                  -z $(arg z_pos) 
+                  -x $(arg x_pos)
+                  -y $(arg y_pos)
+                  -z $(arg z_pos)
                   -param robot_description" />
+
+      <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
 
       <rosparam file="$(find spmr02)/config/controller_common.yaml" command="load"/>
       <rosparam file="$(find spmr02)/config/pid.yaml"               command="load"/>
 
-      <param name="robot_description" 
-             textfile="$(find spmr02)/urdf/spmr02.urdf" />
+      <param name="robot_description" textfile="$(find spmr02)/urdf/spmr02.urdf" />
   
-      <node name="diff_drive_go_to_goal" pkg="diff_drive" type="diff_drive_go_to_goal" 
+      <!-- <node name="diff_drive_go_to_goal" pkg="diff_drive" type="diff_drive_go_to_goal" 
             respawn="true" output="screen"/>  
       <node name="diff_drive_controller" pkg="diff_drive" type="diff_drive_controller" 
             respawn="true" output="screen"/>  
       <node name="diff_drive_PathFind" pkg="diff_drive" type="diff_drive_PathFind" 
-            respawn="true" output="screen"/>  
-      <!-- <node name="diff_drive_canopen" pkg="diff_drive" type="diff_drive_canopen" 
             respawn="true" output="screen"/>   -->
       <!-- <node name="diff_drive_canopen" pkg="diff_drive" type="diff_drive_canopen" 
             respawn="true" output="screen"/>   -->
+
 
   <!-- <node name="right_wheel_link_tf"
         pkg="tf"
         type="static_transform_publisher"
         args="0 0 0 0 0 0 base_link right_wheel_link 40" /> -->
-  
+
   <!-- <node name="left_wheel_link_tf"
         pkg="tf"
         type="static_transform_publisher"
         args="0 0 0 0 0 0 base_link left_wheel_link 40" /> -->
+
+<!-- test -->
+
 
 </launch>

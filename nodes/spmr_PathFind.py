@@ -431,7 +431,7 @@ def node_move(a, b, c, d):
 if __name__ == '__main__':
     try:
         for i in range(0, 100000001):
-            position = open("/home/tang/catkin_ws/src/diff_drive/nodes/Goal_position.txt", 'r')
+            position = open("/home/ubuntu/catkin_ws/src/spmr02/nodes/Goal_position.txt", 'r')
             no = 0
             for line in position:
                 no = no + 1
