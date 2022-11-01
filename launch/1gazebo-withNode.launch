@@ -5,9 +5,9 @@
       <arg name="y_pos" default="0.0"/>
       <arg name="z_pos" default="1.0"/>
 
-      <!-- <include file="$(find spmr02)/launch/nodes.launch"/> -->
-      <!-- <include file="$(find spmr02)/launch/rivzRun.launch"/> -->
-      <!-- <include file="$(find spmr02)/launch/jointStates.launch"/> -->
+      <include file="$(find spmr02)/launch/nodes.launch"/>
+      <include file="$(find spmr02)/launch/rivzRun.launch"/>
+      <include file="$(find spmr02)/launch/jointStates.launch"/>
 
       <include file="$(find gazebo_ros)/launch/empty_world.launch">
             <!-- <arg name="world_name" value="$(find test_mr)/worlds/room.world"/> -->

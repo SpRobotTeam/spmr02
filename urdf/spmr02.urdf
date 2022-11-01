@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <robot name="spmr02">
+
+
   <link name="base_link">
     <inertial>
       <origin xyz="0.036333 3.2862E-05 0.086193" rpy="0 0 0" />
-      <mass value="37.767" />
+      <mass value="50" />
       <inertia ixx="1.9204" ixy="-2.4093E-16" ixz="-0.0004014" iyy="3.0624" iyz="1.9122E-14" izz="4.7207" />
     </inertial>
     <visual>
@@ -12,7 +14,7 @@
       <geometry>
         <mesh filename="package://spmr02/meshes/base_link.STL" />
       </geometry>
-      <material name="">
+      <material name="gazebo/Yellow">
         <color rgba="0.75294 0.75294 0.75294 1" />
       </material>
     </visual>
@@ -31,6 +33,8 @@
       </friction>
     </surface>
   </link>
+
+
   <link name="right_wheel_link">
     <inertial>
       <origin xyz="0.83427 1.2432E-08 1.1348E-14" rpy="0 0 0" />
@@ -42,7 +46,7 @@
       <geometry>
         <mesh filename="package://spmr02/meshes/right_wheel_link.STL" />
       </geometry>
-      <material name="">
+      <material name="gazebo/Block">
         <color rgba="0.75294 0.75294 0.75294 1" />
       </material>
     </visual>
@@ -59,6 +63,7 @@
     <child link="right_wheel_link" />
     <axis xyz="-1 0 0" />
   </joint>
+
   <link name="left_wheel_link">
     <inertial>
       <origin xyz="0.83427 2.7462E-14 -1.1491E-14" rpy="0 0 0" />
@@ -70,7 +75,7 @@
       <geometry>
         <mesh filename="package://spmr02/meshes/left_wheel_link.STL" />
       </geometry>
-      <material name="">
+      <material name="gazebo/Block">
         <color rgba="0.75294 0.75294 0.75294 1" />
       </material>
     </visual>
@@ -89,19 +94,18 @@
   </joint>
 
 
-
   <link name="RF_scan_link">
     <inertial>
-      <origin xyz="0.17357 -0.079376 -1.5775" rpy="0 0 0" />
+      <origin xyz="0.60802 -0.48579 -0.022036" rpy="0 0 0" />
       <mass value="0.008" />
-      <inertia ixx="5.0999E-07" ixy="7.1237E-09" ixz="5.8864E-08" iyy="1.2827E-06" iyz="-7.8405E-08" izz="1.0187E-06" />
+      <inertia ixx="7.0546E-07" ixy="-2.5434E-07" ixz="-6.0478E-08" iyy="8.2319E-07" iyz="5.0403E-08" izz="1.2827E-06" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <mesh filename="package://spmr02/meshes/RF_scan_link.STL" />
       </geometry>
-      <material name="">
+      <material name="gazebo/Blue">
         <color rgba="0.75294 0.75294 0.75294 1" />
       </material>
     </visual>
@@ -115,7 +119,7 @@
 
 
   <joint name="RF_scan_joint" type="fixed">
-    <origin xyz="-0.63018 0.50694 -0.10141" rpy="-1.5708 0 0.7854" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
     <parent link="base_link" />
     <child link="RF_scan_link" />
     <axis xyz="0 0 0" />
@@ -125,16 +129,16 @@
 
   <link name="LR_scan_link">
     <inertial>
-      <origin xyz="0.20435 -0.079376 -1.5302" rpy="0 0 0" />
+      <origin xyz="-0.60802 0.48579 -0.022036" rpy="0 0 0" />
       <mass value="0.008" />
-      <inertia ixx="5.0999E-07" ixy="7.1237E-09" ixz="5.8864E-08" iyy="1.2827E-06" iyz="-7.8405E-08" izz="1.0187E-06" />
+      <inertia ixx="7.0546E-07" ixy="-2.5434E-07" ixz="6.0478E-08" iyy="8.2319E-07" iyz="-5.0403E-08" izz="1.2827E-06" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <mesh filename="package://spmr02/meshes/LR_scan_link.STL" />
       </geometry>
-      <material name="">
+      <material name="gazebo/Red">
         <color rgba="0.75294 0.75294 0.75294 1" />
       </material>
     </visual>
@@ -148,7 +152,7 @@
 
 
   <joint name="LR_scan_joint" type="fixed">
-    <origin xyz="0.61848 -0.45171 -0.10141" rpy="-1.5708 0 -2.3562" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
     <parent link="base_link" />
     <child link="LR_scan_link" />
     <axis xyz="0 0 0" />
@@ -172,7 +176,7 @@
       <odometryFrame>odom</odometryFrame>
       <publishTf>1</publishTf>
       <publishWheelTF>0</publishWheelTF>
-      <publishOdomTF>0</publishOdomTF>
+      <publishOdomTF>1</publishOdomTF>
       <publishWheelJointState>1</publishWheelJointState>
       <wheelAcceleration>1</wheelAcceleration>
       <wheelTorque>500</wheelTorque>
@@ -181,15 +185,15 @@
       <wheelSeparation>0.8</wheelSeparation>
       <wheelDiameter>0.265</wheelDiameter>
     </plugin>
-
   </gazebo>
+
 
   <gazebo reference="RF_scan_link">
     <material value="Gazebo/Red" />
     <sensor type="ray" name="RF_scan">
       <always_on>true</always_on>
-      <update_rate>10</update_rate>
-      <pose>0 0 0 0 0 0</pose>
+      <update_rate>15</update_rate>
+      <pose>0.60802 -0.48579 -0.022036 0 0 0</pose>
       <visualize>1</visualize>
       <ray>
         <scan>
@@ -209,20 +213,21 @@
       <plugin name="gazebo_ros_RF_scan_controller" filename="libgazebo_ros_laser.so">
         <gaussianNoise>0.005</gaussianNoise>
         <alwaysOn>true</alwaysOn>
-        <updateRate>10</updateRate>
-        <topicName>/RF_scan</topicName>
-        <frameName>RF_scan_frame</frameName>
+        <updateRate>15</updateRate>
+        <topicName>RF_scan</topicName>
+        <frameName>RF_scan</frameName>
       </plugin>
     </sensor>
   </gazebo>
+
 
   <gazebo reference="LR_scan_link">
     <material value="Gazebo/Blue" />
     <sensor type="ray" name="LR_scan">
       <always_on>true</always_on>
-      <update_rate>10</update_rate>
-      <pose>0 0 0 0 0 0</pose>
-      <visualize>1</visualize>
+      <update_rate>15</update_rate>
+      <pose>-0.60802 0.48579 -0.022036 0 0 0</pose>
+      <visualize>0</visualize>
       <ray>
         <scan>
           <horizontal>
@@ -234,18 +239,19 @@
         </scan>
         <range>
           <min>0.05</min>
-          <max>25.0</max>
+          <max>1.0</max>
           <resolution>0.01</resolution>
         </range>
       </ray>
       <plugin name="gazebo_ros_LR_scan_controller" filename="libgazebo_ros_laser.so">
         <gaussianNoise>0.005</gaussianNoise>
         <alwaysOn>true</alwaysOn>
-        <updateRate>10</updateRate>
-        <topicName>/LR_scan</topicName>
-        <frameName>LR_scan_frame</frameName>
+        <updateRate>15</updateRate>
+        <topicName>LR_scan</topicName>
+        <frameName>LR_scan</frameName>
       </plugin>
     </sensor>
   </gazebo>
+
 
 </robot>
