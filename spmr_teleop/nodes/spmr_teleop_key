@@ -35,8 +35,7 @@ if os.name == 'nt':
 else:
   import tty, termios
 
-# BURGER_MAX_LIN_VEL = 0.22
-BURGER_MAX_LIN_VEL = 1.2
+BURGER_MAX_LIN_VEL = 1.0
 BURGER_MAX_ANG_VEL = 2.84
 
 WAFFLE_MAX_LIN_VEL = 0.26
@@ -112,7 +111,7 @@ def constrain(input, low, high):
     return input
 
 def checkLinearLimitVelocity(vel):
-    if turtlebot3_model == "burger":
+    if turtlebot3_model == "spmr":
       vel = constrain(vel, -BURGER_MAX_LIN_VEL, BURGER_MAX_LIN_VEL)
     elif turtlebot3_model == "waffle" or turtlebot3_model == "waffle_pi":
       vel = constrain(vel, -WAFFLE_MAX_LIN_VEL, WAFFLE_MAX_LIN_VEL)
