@@ -31,6 +31,10 @@
 
       <param name="robot_description" textfile="$(find spmr02)/urdf/spmr02.urdf" />
   
+      <!-- create combined scan topic (like on real MiR) -->
+      <node pkg="topic_tools" type="relay" name="b_scan_relay" args="b_scan scan"/>
+      <node pkg="topic_tools" type="relay" name="f_scan_relay" args="f_scan scan"/>
+
       <!-- <node name="diff_drive_go_to_goal" pkg="diff_drive" type="diff_drive_go_to_goal" 
             respawn="true" output="screen"/>  
       <node name="diff_drive_controller" pkg="diff_drive" type="diff_drive_controller" 

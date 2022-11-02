@@ -354,8 +354,10 @@
         <gaussianNoise>0.005</gaussianNoise>
         <alwaysOn>true</alwaysOn>
         <updateRate>15</updateRate>
-        <topicName>RF_scan</topicName>
-        <frameName>RF_scan</frameName>
+        <!-- <topicName>RF_scan</topicName>
+        <frameName>RF_scan</frameName> -->
+        <topicName>f_scan</topicName>
+        <frameName>f_scan</frameName>
       </plugin>
     </sensor>
   </gazebo>
@@ -387,8 +389,10 @@
         <gaussianNoise>0.005</gaussianNoise>
         <alwaysOn>true</alwaysOn>
         <updateRate>15</updateRate>
-        <topicName>LR_scan</topicName>
-        <frameName>LR_scan</frameName>
+        <!-- <topicName>LR_scan</topicName>
+        <frameName>LR_scan</frameName> -->
+        <topicName>b_scan</topicName>
+        <frameName>b_scan</frameName>
       </plugin>
     </sensor>
   </gazebo>
