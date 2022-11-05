@@ -193,14 +193,12 @@
   
   <joint name="RF_scan_joint" type="fixed">
     <origin
-      xyz="0.60802 -0.48579 -0.07"
-      rpy="0 0 0" />
+      xyz="0.60802 -0.48579 -0.08"
+      rpy="0 0 -0.7853" />
     <parent
       link="base_link" />
     <child
       link="RF_scan_link" />
-    <axis
-      xyz="0 0 0" />
   </joint>
 
 
@@ -243,17 +241,15 @@
           filename="package://spmr02/meshes/LR_scan_link.STL" />
       </geometry>
     </collision> -->
-  </link>
+  </link>  
   <joint name="LR_scan_joint" type="fixed">
     <origin
-      xyz="-0.60802 0.48579 -0.07"
-      rpy="0 0 3.141592" />
+      xyz="-0.60802 0.48579 -0.08"
+      rpy="0 0 2.3561" />
     <parent
       link="base_link" />
     <child
       link="LR_scan_link" />
-    <axis
-      xyz="0 0 0" />
   </joint>
 
 
@@ -340,7 +336,7 @@
       <update_rate>15</update_rate>
       <!-- <pose>0.60802 -0.48579 -0.022036 0 0 0</pose> -->
       <pose>0 0 0 0 0 0</pose>
-      <visualize>1</visualize>
+      <visualize>0</visualize>
       <ray>
         <scan>
           <horizontal>
@@ -363,7 +359,7 @@
         <!-- <topicName>RF_scan</topicName>
         <frameName>RF_scan</frameName> -->
         <topicName>f_scan</topicName>
-        <frameName>f_scan</frameName>
+        <frameName>RF_scan_link</frameName>
       </plugin>
     </sensor>
   </gazebo>
@@ -374,6 +370,7 @@
     <sensor type="ray" name="LR_scan">
       <always_on>true</always_on>
       <update_rate>15</update_rate>
+      <!-- <pose>0 0 0 0 0 0</pose> -->
       <pose>0 0 0 0 0 0</pose>
       <visualize>1</visualize>
       <ray>
@@ -398,7 +395,7 @@
         <!-- <topicName>LR_scan</topicName>
         <frameName>LR_scan</frameName> -->
         <topicName>b_scan</topicName>
-        <frameName>b_scan</frameName>
+        <frameName>LR_scan_link</frameName>
       </plugin>
     </sensor>
   </gazebo>

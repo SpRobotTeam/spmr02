@@ -1,7 +1,7 @@
 <launch>
       <arg name="model" default="spmr02"/>
       <arg name="x_pos" default="0.0"/>
-      <arg name="y_pos" default="-5.0"/>
+      <arg name="y_pos" default="0.0"/>
       <arg name="z_pos" default="1.0"/>
 
       <arg name="ticks_per_meter" value="76.433" />
@@ -14,7 +14,7 @@
             <remap from="$(arg namespace)/mobile_base_controller/odom"    to="$(arg namespace)/odom" />
       </group> -->
       <include file="$(find gazebo_ros)/launch/empty_world.launch">
-            <arg name="world_name" value="$(find spmr02)/worlds/turtlebot3_house.world"/>
+            <!-- <arg name="world_name" value="$(find spmr02)/worlds/turtlebot3_house.world"/> -->
             <arg name="paused" value="false"/>
             <arg name="use_sim_time" value="true"/>
             <arg name="gui" value="true"/>
@@ -24,7 +24,7 @@
   
       <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model spmr02 -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
 
-      <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
+      <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" /> -->
 
       <rosparam file="$(find spmr02)/config/controller_common.yaml" command="load"/>
       <rosparam file="$(find spmr02)/config/pid.yaml"               command="load"/>
@@ -35,6 +35,9 @@
       <node pkg="topic_tools" type="relay" name="b_scan_relay" args="b_scan scan"/>
       <node pkg="topic_tools" type="relay" name="f_scan_relay" args="f_scan scan"/>
 
+      <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+            <param name="publish_frequency" type="double" value="50.0" />
+      </node>
       <!-- <node name="diff_drive_go_to_goal" pkg="diff_drive" type="diff_drive_go_to_goal" 
             respawn="true" output="screen"/>  
       <node name="diff_drive_controller" pkg="diff_drive" type="diff_drive_controller" 
