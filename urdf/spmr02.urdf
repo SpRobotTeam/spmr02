@@ -336,7 +336,7 @@
       <update_rate>15</update_rate>
       <!-- <pose>0.60802 -0.48579 -0.022036 0 0 0</pose> -->
       <pose>0 0 0 0 0 0</pose>
-      <visualize>0</visualize>
+      <visualize>1</visualize>
       <ray>
         <scan>
           <horizontal>
