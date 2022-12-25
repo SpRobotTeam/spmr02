@@ -1,14 +1,32 @@
-cmake_minimum_required(VERSION 2.8.3)
-
+################################################################################
+# Set minimum required version of cmake, project name and compile options
+################################################################################
+cmake_minimum_required(VERSION 3.0.2)
 project(spmr02)
+cmake_policy(SET CMP0054 NEW)
 
-find_package(catkin REQUIRED)
+## Compile as C++11, supported in ROS Kinetic and newer
+add_compile_options(-std=c++11)
 
-catkin_package()
+################################################################################
+# Find catkin packages and libraries for catkin and system dependencies
+################################################################################
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  std_msgs
+  gazebo_ros
+  sensor_msgs
+)
 
-find_package(roslaunch)
+find_package(gazebo REQUIRED)
 
-foreach(dir config launch meshes urdf)
-	install(DIRECTORY ${dir}/
-		DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
-endforeach(dir)
+catkin_package(
+#   INCLUDE_DIRS include
+  CATKIN_DEPENDS roscpp std_msgs gazebo_ros sensor_msgs
+  DEPENDS GAZEBO
+)
+
+catkin_install_python(PROGRAMS
+  nodes/rep117_filter.py
+  nodes/spmr_teleop_key
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

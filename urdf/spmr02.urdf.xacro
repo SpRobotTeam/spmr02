@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+
+<robot name="spmr02" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find spmr02)/urdf/spmr02.gazebo.xacro"/>
+
+  <xacro:arg name="laser_visual" default="false"/>
+
+  <link name="base_link">
+    <inertial>
+      <origin
+        xyz="0.036333 3.2862E-05 0.086193"
+        rpy="0 0 0" />
+      <mass
+        value="50" />
+      <inertia
+        ixx="1.9204"
+        ixy="-2.4093E-16"
+        ixz="-0.0004014"
+        iyy="3.0624"
+        iyz="1.9122E-14"
+        izz="4.7207" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://spmr02/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://spmr02/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+    <surface>
+      <friction>
+        <ode>
+          <mu>0.001</mu>
+          <mu2>0.001</mu2>
+        </ode>
+      </friction>
+    </surface>
+  </link>
+  <link name="right_wheel_link">
+    <inertial>
+      <origin
+        xyz="0.83427 1.2432E-08 1.1348E-14"
+        rpy="0 0 0" />
+      <mass
+        value="2.0043" />
+      <inertia
+        ixx="0.020935"
+        ixy="1.5041E-10"
+        ixz="1.4232E-17"
+        iyy="0.010841"
+        iyz="8.1024E-19"
+        izz="0.010841" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://spmr02/meshes/right_wheel_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://spmr02/meshes/right_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_wheel_joint" type="continuous">
+    <origin
+      xyz="0 0.40407 -0.001"
+      rpy="1.5708 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="right_wheel_link" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link name="left_wheel_link">
+    <inertial>
+      <origin
+        xyz="0.83427 2.7462E-14 -1.1491E-14"
+        rpy="0 0 0" />
+      <mass
+        value="2.0043" />
+      <inertia
+        ixx="0.020935"
+        ixy="3.6958E-18"
+        ixz="1.3244E-17"
+        iyy="0.010841"
+        iyz="4.6529E-19"
+        izz="0.010841" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://spmr02/meshes/left_wheel_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://spmr02/meshes/left_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_wheel_joint" type="continuous">
+    <origin
+      xyz="0 -0.40407 -0.001"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="left_wheel_link" />
+    <axis
+      xyz="1 0 0" />
+  </joint>
+
+  <link name="RF_scan_link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        
+        rpy="0 0 0" />
+      <mass
+        value="0.008" />
+      <inertia
+        ixx="7.0546E-07"
+        ixy="-2.5434E-07"
+        ixz="-6.0478E-08"
+        iyy="8.2319E-07"
+        iyz="5.0403E-08"
+        izz="1.2827E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="-0.60802 0.48579 0.082036"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://spmr02/meshes/RF_scan_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+  </link>
+  
+  <joint name="RF_scan_joint" type="fixed">
+    <origin
+      xyz="0.60802 -0.48579 0.21"
+      rpy="0 0 -0.7853" />
+    <parent
+      link="base_link" />
+    <child
+      link="RF_scan_link" />
+  </joint>
+
+
+
+  <link name="LR_scan_link">
+    <inertial>
+      <origin
+        xyz="-0.60802 0.48579 -0.022036"
+        rpy="0 0 0" />
+      <mass
+        value="0.008" />
+      <inertia
+      ixx="7.0546E-07"
+      ixy="-2.5434E-07"
+      ixz="6.0478E-08"
+      iyy="8.2319E-07"
+      iyz="-5.0403E-08"
+      izz="1.2827E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0.60802 -0.48579 0.082036"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://spmr02/meshes/LR_scan_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+  </link>  
+  <joint name="LR_scan_joint" type="fixed">
+    <origin
+      xyz="-0.60802 0.48579 0.21"
+      rpy="0 0 2.3561" />
+    <parent
+      link="base_link" />
+    <child
+      link="LR_scan_link" />
+  </joint>
+</robot>
