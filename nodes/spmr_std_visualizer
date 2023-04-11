@@ -1,0 +1,584 @@
+#!/usr/bin/env python3
+
+import sys
+from PySide6.QtWidgets import *
+from PySide6.QtGui import QAction, QIcon 
+from PySide6.QtCore import *
+
+import rospy
+
+import re
+import numpy as np
+import math
+import collections
+
+from std_msgs.msg import Bool, String
+from geometry_msgs.msg import PoseStamped
+
+
+import time
+
+class MyWindow(QMainWindow):
+    def __init__(self):
+         super().__init__()
+
+         self.wg = Preview()
+         self.resize(1000,550)
+
+         self.exit_action = QAction(QIcon("exit.png"), 'exit', self)
+         self.exit_action.triggered.connect(self.close)
+
+         self.record_action = QAction(QIcon("record.png"), 'record', self)
+         self.record_action.triggered.connect(self.record)
+
+         self.clear_action = QAction(QIcon("clear_list.png"), 'clear_list', self)
+         self.clear_action.triggered.connect(self.clear_list)
+
+         # self.save_action = QAction(QIcon("save.png"), 'save', self)
+         # self.save_action.setShortcut('Crel+S')
+         # self.save_action.triggered.connect(self.save_list)
+
+         self.statusBar()
+
+         self.toolbar = self.addToolBar('title')
+         self.toolbar.addAction(self.exit_action)
+         self.toolbar.addSeparator()
+         self.toolbar.addAction(self.record_action)
+         # self.toolbar.addAction(self.save_action)
+         self.toolbar.addAction(self.clear_action)
+         
+         self.setCentralWidget(self.wg) 
+
+
+         # self.setGeometry(300, 700, 350, 150)
+         self.show()
+
+         #  self.timer = QTimer(self)
+         #  self.timer.start(1000)
+         # #  self.n = 1
+         #  self.timer.timeout.connect(self.repaint_win)
+
+    
+    
+    def clear_list(self) -> None:
+         self.wg.target_info_list.clear()
+         self.wg.error_std_list.clear()
+         self.wg.trend_list.clear()
+
+
+    def record(self) -> None:
+         self.wg.run_state = not self.run_wg.state
+         print(self.wg.run_state)
+         
+
+class Preview(QDialog):
+    def __init__(self,parent=None):
+         super().__init__(parent)
+
+         self.qr_coord_sub = rospy.Subscriber("coordinate_calc/qr_coord_pub", String, self.callback_qr_coord)
+         self.amr_coord_sub = rospy.Subscriber("coordinate_calc/amr_coord_pub", String, self.callback_amr_coord)
+         self.error_sub = rospy.Subscriber("coordinate_calc/error_pub", String, self.callback_error_val)
+         self.std_sub = rospy.Subscriber("coordinate_calc/std_pub", String, self.callback_std_val)
+         self.state_sub = rospy.Subscriber("coordinate_calc/state_pub", Bool, self.callback_state)
+         self.goal_achieved_sub = rospy.Subscriber("/goal_achieved", Bool, self.callback_goal_achieved)
+         self.goal_achieved = False
+
+         self.go_to_goal_pub = rospy.Publisher('move_base_simple/goal', PoseStamped, queue_size=10)
+
+         self.run_state = False
+         self.qr_coord_list = []
+         self.amr_coord_list = []
+         self.error_list = []
+         self.average_error_list = []
+         self.std_list = []
+
+         self.qr_coord_val = ''
+         self.amr_coord_val = ''
+         self.error_val = ''
+         self.std_val = ''
+
+         self.target_num = 0
+
+         self.goal_point_dict = {'01':[0,0,0], '03':[0.025,0,0], '05':[0,0,0.036216], '07':[0,0.015,math.pi/2], '09':[ -0.00312239, -0.00440463, 1.530964159]} # {[0,0,0], [0.025,0,0], [0,0,0.036216], [0,0.015,math.pi/2], [-0.0336135,-0.0082065,1.5121545]} #   10.676689, -9.965228     9.256084, -10.018359  
+         self.goal_position = [[[0,0,0.1328],[0,0,0,0]], [[10,10,0.1328],[0,0,0,0]], [[-10,10,0.1328],[0,0,1,0]], [[-10,-10,0.1328],[0,0,0.70710678,0.70710678]], [[10,-10,0.1328],[0,0,0.70710678,0.70710678]]]
+          
+         self.start_button = QPushButton("START")
+
+         target_box = QVBoxLayout()
+         self.target_info_list = QListWidget()
+         target_box.addWidget(self.target_info_list)
+
+         sub_target_box = QHBoxLayout()
+         self.target_combo = QComboBox(self)
+         self.target_combo.addItem('all')# 전채
+         self.target_combo.addItem('recent')# 최근 (마지막)
+         self.selected_target_combo = 'recent'         
+         for i in range(len(self.goal_position)):
+            self.target_combo.addItem(str(i+1))
+         target_box.addWidget(self.target_combo)
+         self.target_combo.currentTextChanged.connect(self.target_combo_select)# !
+         
+         self.target_set_button = QPushButton("Go!")
+         self.target_set_button.clicked.connect(self.target_set) # !
+         sub_target_box.addWidget(self.target_combo)
+         sub_target_box.addWidget(self.target_set_button)
+
+         target_box.addLayout(sub_target_box)
+
+
+
+         error_std_box = QVBoxLayout()
+         self.error_std_list = QListWidget()
+         error_std_box.addWidget(self.error_std_list)
+         
+         sub_error_std_box = QHBoxLayout()
+         radio_group_box = QGroupBox(self)
+         radio_group_box.setLayout(sub_error_std_box)
+         self.error_radio = QRadioButton("show error",self)
+         self.error_radio.setChecked(True)
+         self.error_radio.clicked.connect(self.error_show)
+         self.average_error_radio = QRadioButton("show average_error",self)
+         self.average_error_radio.clicked.connect(self.average_error_show)
+         self.std_radio=QRadioButton("show std",self)
+         self.std_radio.clicked.connect(self.std_show)
+         sub_error_std_box.addWidget(self.error_radio)
+         sub_error_std_box.addWidget(self.average_error_radio)
+         sub_error_std_box.addWidget(self.std_radio)
+         error_std_box.addWidget(radio_group_box)
+
+         rotation_show_box = QVBoxLayout()
+         rotation_show_group_box = QGroupBox(self)
+         rotation_show_group_box.setLayout(rotation_show_box)
+         self.angle_format = 3
+         self.degree_radio = QRadioButton("show degree",self)
+         self.degree_radio.setChecked(True)
+         self.degree_radio.clicked.connect(self.degree_show)
+         self.radian_radio = QRadioButton("show radian",self)
+         self.radian_radio.clicked.connect(self.radian_show)
+         rotation_show_box.addWidget(self.degree_radio)
+         rotation_show_box.addWidget(self.radian_radio)
+         rotation_show_box.addWidget(rotation_show_group_box)
+
+
+
+         trend_box = QHBoxLayout()
+         self.trend_list = QListWidget()
+         trend_box.addWidget(self.trend_list)
+
+
+
+         left = QVBoxLayout()
+         #  left.addWidget(self.list_a_Label)
+         #  left.addWidget(self.target_info_list)
+         left.addLayout(target_box)
+         left.addLayout(trend_box)
+
+         right = QVBoxLayout()
+         #  right.addWidget(self.list_b_Label)
+         #  right.addWidget(self.error_std_list)
+         right.addLayout(error_std_box)
+         right.addLayout(rotation_show_box)
+
+         #  center = QVBoxLayout()
+         #  center.addStretch()
+
+         top = QHBoxLayout()
+         top.addLayout(left)
+         #  top.addLayout(center)
+         top.addLayout(right)
+
+         
+         bottom = QHBoxLayout()
+         bottom.addWidget(self.start_button)
+         self.start_button.clicked.connect(self.start)
+
+         self.run_state = False
+         self.rec_state = False
+
+         mainLayout = QVBoxLayout()
+         mainLayout.addLayout(top)
+         mainLayout.addLayout(bottom)
+         self.setLayout(mainLayout)
+
+         # self.resize(550,800)
+
+         self.timer = QTimer(self)
+         self.timer.start(1000)
+         #  self.n = 1
+         self.timer.timeout.connect(self.refresh_window())
+
+         self.show()
+
+    def refresh_window(self):
+         self.target_info_list.repaint()
+         self.error_std_list.repaint()
+         self.trend_list.repaint()
+         #  self.repaint()
+         #  QApplication.processEvents()
+
+    def target_combo_select(self): #콤보박스 선택(리스트위젯에 표시할 요소 선택)
+         self.selected_target_combo = self.target_combo.currentText()
+         print(self.selected_target_combo)
+
+         if self.selected_target_combo == 'all' or 'recent':
+            self.target_list = list(range(len(self.goal_position)))
+
+         else:
+            self.target_list = [int(self.selected_target_combo)-1] # ! int, str
+            self.target_num = self.target_list[0]
+                                                 
+
+    def target_set(self): #'GO!' 버튼 (리스트위젯 클리어, 콤보박스에 선택된 타겟으로 이동 / 리스트위젯 현 타겟, 이전 타겟 표시)
+         self.target_info_list.clear()
+         self.rec_state = True
+
+         if self.selected_target_combo == 'all' or self.selected_target_combo == 'recent':
+            print(self.selected_target_combo)
+            self.loop = True
+            self.target_info_list.addItem("running roop ... ")
+            
+            self.publish(self.target_num)
+
+         else:
+            self.loop = False
+            self.target_num = int(self.selected_target_combo)-1
+            self.target_info_list.addItem("going to target ... ")
+            
+         self.publish(self.target_num)
+            
+         if len(self.amr_coord_list):
+            previous_target_text = "most recently arrived target is target #%02d. "%int(self.amr_coord_list[-1][0]) #마지막에 도달한 목표는 %02d번 목표입니다.
+            self.target_info_list.addItem(previous_target_text)
+            
+         self.target_info_list.repaint()
+
+         
+    def error_show(self): #라디오 'show error' (리스크위젯 오차 표시)
+         
+         average_error_show_text = ''
+         error_list = []
+         
+         if self.rec_state:
+            self.error_std_list.clear()
+            for target in self.target_list :
+                 try:
+                    error_list.append(self.error_list[len(self.error_list) - self.error_list.reverse.index(target)])
+                 except Exception as e:
+                    print('error: ',e)
+                    pass
+            try:
+                 for i in range(error_list):
+                    error_show_text += 'Target %02d #%06d\nX:\t%04f Y:\t%04f thetha:\t%04f\n '\
+                    %int(error_list[i][0])%int(error_list[i][1])%error_list[i][3][0]%error_list[i][3][1]%error_list[i][3][self.angle_format]
+                    #%02d번 목표의 %06d번째 도달 결과\nX축 오차:\t%04f Y축 오차:\t%04f 각도 오차:\t%04f\n 
+
+                    if self.selected_target_combo == 'all':#전채
+                         error_show_text = "Most recent error of all Target \n"+error_show_text #모든 목표에 대한 가장 최근 오차 \n
+         
+                    elif self.selected_target_combo == 'recent':
+                         error_show_text = "Most recent error of the last Target \n"+error_show_text #마지막으로 도달한 목표에 대한 가장 최근 오차 \n
+                         
+                    else :
+                         error_show_text = "Most recent error of " +error_show_text #목표 %02d번에 대한 최근 오차 \n
+                         
+                    self.error_std_list.addItem(error_show_text)
+                    
+            except Exception as e:
+                 print('error: ',e)
+                 error_show_text = "Not avilable yet "#아직 목록이 생성되지 않음
+                 self.error_std_list.addItem(error_show_text)
+
+            
+    def average_error_show(self): #라디오 'show average_error' (리스크위젯 오차 평균 표시)
+         average_error_show_text = ''
+         average_error_list = []
+         
+         if self.rec_state:
+            self.error_std_list.clear()
+            for target in self.target_list :
+                 try:
+                    average_error_list = [self.average_error_list[i] for i in range(len(self.average_error_list)) if self.average_error_list[i][0] == str('%02d'%(target*2+1))] # !
+                 except Exception as e:
+                    print('error: ',e)
+                    pass
+            try:
+            
+                 for i in range(average_error_list):
+                    average_error_show_text += 'Average error of Target %02d #%06d\nX:\t%04f Y:\t%04f thetha:\t%04f\n '\
+                    %int(average_error_list[i][0])%int(average_error_list[i][1])%average_error_list[i][3][0]%average_error_list[i][3][1]%average_error_list[i][3][self.angle_format]
+                    #%02d번 목표의 %06d번째 도달 결과\nX축 오차:\t%04f Y축 오차:\t%04f 각도 오차:\t%04f\n 
+                    if self.selected_target_combo == 'all':#전채
+                         average_error_show_text = "Average error of all Target \n"+average_error_show_text #모든 목표에 대한 평균 오차 \n
+         
+                    elif self.selected_target_combo == 'recent':
+                         average_error_show_text = "Average error of the last Target \n"+average_error_show_text #마지막으로 도달한 목표에 대한 평균 오차 \n
+                         
+                    else :
+                         average_error_show_text = "Average error of " +average_error_show_text #목표 %02d번에 대한 평균 오차 \n
+                         
+                    self.error_std_list.addItem(average_error_show_text)
+
+            except Exception as e:
+                 print('error: ',e)
+                 average_error_show_text = "Not avilable yet "#아직 목록이 생성되지 않음
+                 self.error_std_list.addItem(average_error_show_text)
+ 
+
+    def std_show(self): #라디오 'show std' (리스크위젯 표준편차 표시)
+         self.error_std_Qtext
+         self.trend_Qtext
+         
+         self.error_std_list.clear()
+         std_show_text = ''
+         error_list = []
+         
+         if self.rec_state:
+            for target in self.target_list :
+                 try:
+                    std_list = [self.std_list[i] for i in range(len(self.std_list)) if self.std_list[i][0] == str('%02d'%(target*2+1))] # !
+                 except Exception as e:
+                    print('error: ',e)
+                    pass
+            try:
+                 for i in range(std_list):
+                    std_show_text += 'STD of Target %02d #%06d\nX:\t%04f Y:\t%04f thetha:\t%04f\n '\
+                    %int(std_list[i][0])%int(std_list[i][1])%std_list[i][3][0]%std_list[i][3][1]%std_list[i][3][self.angle_format]
+                    #%02d번 목표의 %06d번째 도달 결과\nX축 오차:\t%04f Y축 오차:\t%04f 각도 오차:\t%04f\n 
+                 
+                 if self.selected_target_combo == 'all':#전채
+                    std_show_text = "STD of all target \n"+std_show_text #모든 목표에 대한 가장 최근 오차 \n
+    
+                 elif self.selected_target_combo == 'recent':
+                    std_show_text = "STD of the last target \n"+std_show_text #마지막으로 도달한 목표에 대한 가장 최근 오차 \n
+                    
+                 else :
+                    std_show_text = "STD of target %02d \n"%self.target_list[0] +std_show_text #목표 %02d번에 대한 최근 오차 \n
+                    
+                 self.error_std_list.addItem(std_show_text)
+            
+            except Exception as e:
+                 print('error: ',e)
+                 std_show_text = "Not avilable yet "#아직 목록이 생성되지 않음
+                 self.error_std_list.addItem(std_show_text)
+ 
+            
+ 
+    def trend_show(self): #추세 표시 (평균과의 오차의 현재와 직전 상태 비교(기울기))
+         trend_show_text = ''
+         trend_list = []
+
+         if self.rec_state:
+            for target in self.target_list :
+                 try:
+                    error_list = [self.error_list[i] for i in range(len(self.error_list)) if self.error_list[i][0] == str('%02d'%(target*2+1))] # !
+                 except Exception as e:
+                    print('error: ',e)
+                    pass
+            try:
+                 for i in range(trend_list):
+                    std_show_text += 'STD of Target %02d #%06d\nX:\t%04f Y:\t%04f thetha:\t%04f\n '\
+                    %int(trend_list[i][0])%int(trend_list[i][1])%trend_list[i][3][0]%trend_list[i][3][1]%trend_list[i][3][self.angle_format]
+                    #%02d번 목표의 %06d번째 도달 결과\nX축 오차:\t%04f Y축 오차:\t%04f 각도 오차:\t%04f\n 
+                 trend_list.append()
+
+            except Exception as e:
+                 print('error: ',e)
+                 trend_show_text = "Not avilable yet "#아직 목록이 생성되지 않음
+                 self.trend_list.addItem(trend_show_text)
+
+         trend_show_text = "trend of all target \n"+trend_show_text #모든 목표에 대한 추세 \n
+         
+         trend_show_text = ("trend of target %02d \n"%int(self.target_list[0])) + trend_show_text #목표 %02d번의 추세 \n
+         
+         self.trend_list.addItem(trend_show_text)
+
+
+    def degree_show(self):
+         self.angle_format = 3
+         self.refresh_window
+    
+
+    def radian_show(self):
+         self.angle_format = 2
+         self.refresh_window
+
+
+    def callback_state(self, data): # 카메라 콜백 (업데이트)
+         self.calc_state = data.data
+         print('___calc : ',self.calc_state)
+
+         if self.goal_achieved and self.calc_state:
+            
+            self.target_info_list.addItem("arrived at target #%02d."%(int(self.target_num)+1))
+            if self.loop:    
+                 if self.target_num >= len(list(self.goal_point_dict.keys()))-1:
+                    self.target_num = 0
+                 else:
+                    self.target_num += 1
+
+                 self.publish(self.target_num)
+                 
+                #  self.goal_pose = PoseStamped()
+                #  self.goal_pose.pose.position.x, self.goal_pose.pose.position.y, self.goal_pose.pose.position.z = self.goal_position[self.target_num][0]
+                #  self.goal_pose.pose.orientation.x, self.goal_pose.pose.orientation.y, self.goal_pose.pose.orientation.z, self.goal_pose.pose.orientation.w = self.goal_position[self.target_num][1] 
+                 
+                #  self.go_to_goal_pub.publish(self.goal_pose)
+    
+                 #  self.target_combo_select()
+            
+
+        #  else:
+        #     self.publish(False)
+         print('trying')
+         if self.calc_state and (self.amr_coord_val[0] and self.error_val[0] and self.std_val[0]): # self.qr_coord_val[0] or
+            print('enter')
+            # if self.qr_coord_val and (not len(self.qr_coord_list) or self.qr_coord_val != self.qr_coord_list[-1]):
+            #      self.qr_coord_list.append(self.qr_coord_val)
+            if self.amr_coord_val and (not len(self.amr_coord_list) or self.amr_coord_val != self.amr_coord_list[-1]):
+                 
+                 self.amr_coord_list.append(self.amr_coord_val)
+                 
+            if self.error_val and (not len(self.error_list) or self.error_val != self.error_list[-1]):
+                 
+                 self.error_list.append(self.error_val)
+                 
+                 try:
+                    iteration: int = int(self.average_error_list[list(zip(*self.average_error_list))[0].index(self.error_val[0])][1]) +1
+                    print ('iteration', iteration)
+                    pos = [i for i in range(len(self.error_list)) if self.error_list[i][0] == self.error_val[0]]
+                    error_sum_list = []
+                    for i in pos:
+                         error_sum_list.append(self.error_list[i])
+                    
+                    self.average_error_list[list(zip(*self.average_error_list))[0].index(self.error_val[0])] = [self.error_val[0], \
+                                                                                                                 iteration, \
+                                                                                                                 sum(list(zip(*error_sum_list))[2])/float(iteration),    # X
+                                                                                                                 sum(list(zip(*error_sum_list))[3])/float(iteration),    # Y
+                                                                                                                 sum(list(zip(*error_sum_list))[4])/float(iteration),    # theta - radian
+                                                                                                                 sum(list(zip(*error_sum_list))[5])/float(iteration)   ]  # theta - degree
+                    print('average_error_replace')
+                 except Exception as e:
+                     print('error: ',e)
+                     print('average_error_regist')
+                     self.average_error_list.append([self.error_val[0]]+[0]+self.error_val[2:])
+                
+
+            if self.std_val:
+                 try:
+                    if self.std_val != self.std_list[list(zip(*self.std_list))[0].index(self.std_val[0])]:
+                         self.std_list[list(zip(*self.std_list))[0].index(self.std_val[0])] = self.std_val
+                         print('std_replace')
+                 except Exception as e:
+                    print('error: ',e)
+                    print('std_regist')
+                    self.std_list.append(self.std_val)
+         
+         else:
+            print('cam_fail')
+            self.publish(False)
+
+         print('________error_list\n',self.error_list)
+         print('________average_error_list\n',self.average_error_list)
+         print('________std_list\n',self.std_list)
+         
+
+    def callback_goal_achieved(self, data):
+         self.goal_achieved = data.data
+         if self.goal_achieved :
+            print("arrived")
+     
+    def callback_qr_coord(self, data):
+         s = data.data
+         s = re.sub('''[\' \" \[ \]]''','',s)
+         s = [*s.split(',')[:1],*list(map(float,[*s.split(',')[1:]]))]
+         if len(self.qr_coord_list) == 0 or self.qr_coord_list[-1] != s:
+            self.qr_coord_val = s 
+         else:
+            self.qr_coord_val = ''
+         print('___qr\n', s)
+         
+    def callback_amr_coord(self, data):
+         s = data.data
+         s = re.sub('''[\' \" \[ \]]''','',s)
+         s = [*s.split(',')[:2],*list(map(float,[*s.split(',')[2:]]))]
+         if len(self.amr_coord_list) == 0 or self.amr_coord_list[-1] != s:
+            self.amr_coord_val = s
+         else:
+            self.amr_coord_val = ''
+         print('___amr\n',s)
+         
+    def callback_error_val(self, data):
+         s = data.data
+         s = re.sub('''[\' \" \[ \]]''','',s)
+         s = [*s.split(',')[:2],*list(map(float,[*s.split(',')[2:]]))]
+         if len(self.error_list) == 0 or self.error_list[-1] != s:
+            self.error_val = s
+         else:
+            self.error_val = ''
+         print('___err\n',s)
+      
+    def callback_std_val(self, data):
+         s = data.data
+         s = re.sub('''[\' \" \[ \]]''','',s)
+         s = [*s.split(',')[:1],*list(map(float,[*s.split(',')[1:]]))]
+         if len(self.std_list) == 0 or self.std_list[-1] != s:
+            self.std_val = s
+         else:
+            self.std_val = ''
+         print('___std\n',s)
+
+    def publish(self, target_num):
+         if target_num:
+             target_text = "current target is target #%02d."%(int(target_num))
+             print(target_text)
+             self.target_info_list.addItem(target_text)
+
+             self.goal_pose = PoseStamped()
+             self.goal_pose.pose.position.x, self.goal_pose.pose.position.y, self.goal_pose.pose.position.z = self.goal_position[int(target_num)][0]
+             self.goal_pose.pose.orientation.x, self.goal_pose.pose.orientation.y, self.goal_pose.pose.orientation.z, self.goal_pose.pose.orientation.w = self.goal_position[int(target_num)][1] 
+            
+             self.go_to_goal_pub.publish(self.goal_pose)
+         else:
+             self.go_to_goal_pub.publish(self.goal_pose)
+
+            
+    def start(self):
+         #  self.target_num = 0
+         self.run_state = not self.run_state
+         if self.run_state:
+            self.rec_state = True
+            #  self.loop = True
+            self.start_button.setText("STOP")
+            
+            self.goal_pose = PoseStamped()
+            self.goal_pose.pose.position.x, self.goal_pose.pose.position.y, self.goal_pose.pose.position.z = self.goal_position[0][0]
+            self.goal_pose.pose.orientation.x, self.goal_pose.pose.orientation.y, self.goal_pose.pose.orientation.z, self.goal_pose.pose.orientation.w = self.goal_position[0][1] 
+            
+            #  self.go_to_goal_pub.publish(self.goal_pose)
+            self.target_set()
+
+            if not self.loop:
+                 self.start_button.setText("START")
+                 self.rec_state = False
+
+         else:
+            self.start_button.setText("START")
+            self.rec_state = False
+            self.loop = False
+
+         print(self.rec_state)
+
+
+if __name__ == "__main__":
+    rospy.init_node('camera_read', anonymous=True)
+    app = QApplication(sys.argv)
+    window = MyWindow()
+    window.show()
+    app.exec()
+
+    try:
+         rospy.spin()
+    except KeyboardInterrupt:
+         rospy.loginfo("Shutting down")
+
+    
