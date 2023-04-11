@@ -238,7 +238,7 @@
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
       </link>
-      <pose>10.6468 -10.0749 0 0 -0 0</pose>
+      <pose>10.6535 -9.9103 0 0 -0 0</pose>
     </model>
     <model name='QR10'>
       <static>1</static>
@@ -255,7 +255,7 @@
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
       </link>
-      <pose>9.19083 -10.0162 0 0 -0 0</pose>
+      <pose>9.15062 -10.0251 0 0 -0 0</pose>
     </model>
     <state world_name='default'>
       <sim_time>1153 222000000</sim_time>
@@ -343,20 +343,20 @@
         </link>
       </model>
       <model name='QR09'>
-        <pose>10.4728 -9.91017 -0 3.13843 1.57079 -3.04475</pose>
+        <pose>10.6767 -9.96523 0 -2.94662 1.57079 -2.84661</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>10.4728 -9.91017 -0 3.13843 1.57079 -3.04475</pose>
+          <pose>10.6767 -9.96523 0 -2.94662 1.57079 -2.84661</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='QR10'>
-        <pose>9.35114 -9.99633 0 -3.13507 1.57079 2.94812</pose>
+        <pose>9.25608 -10.0184 0 -3.0416 1.57079 3.0416</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>9.35114 -9.99633 0 -3.13507 1.57079 2.94812</pose>
+          <pose>9.25608 -10.0184 0 -3.0416 1.57079 3.0416</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
