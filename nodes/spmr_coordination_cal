@@ -1,0 +1,186 @@
+
+#! /usr/bin/env python3
+
+# import rospy
+# import cv2
+
+# from sensor_msgs.msg import Image
+# from cv_bridge import CvBridge, CvBridgeError
+# from pyzbar.pyzbar import decode
+
+# class camera_1:
+
+#   def __init__(self):
+#     #self.image_sub = rospy.Subscriber("/camera_1/image_raw", Image, self.callback) 
+#     self.image_sub = rospy.Subscriber("/L_camera/L_camera_image_raw", Image, self.callback)
+
+#     print ("0\n")
+
+#   def callback(self,data):
+#     print ("1\n")
+#     bridge = CvBridge()
+#     print ("2\n")
+
+#     try:
+#       cv_image = bridge.imgmsg_to_cv2(data, "bgr8")
+#       print ("3\n")
+#     except CvBridgeError as e:
+#       rospy.logerr(e)
+#       print ("E\n")
+
+#     (rows,cols,channels) = cv_image.shape
+#     print ("4\n")
+#     image = cv_image
+#     print ("5\n")
+#     #self.ret, self.img = image.read()
+#     # if self.ret == False:
+#     #     print("X")
+#     # else:
+#     #     print("O")
+
+#     #resized_image = cv2.resize(image, (1280, 800)) 
+
+#     #gray = cv2.cvtColor(resized_image, cv2.COLOR_BGR2GRAY)
+#     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+#     thresh = 40
+#     img_bw = cv2.threshold(gray, thresh, 255, cv2.THRESH_BINARY)[1]
+
+#     #cv2.imshow("B&W Image", gray)
+#     #cv2.imshow("B&W Image /w threshold", img_bw)
+
+#     qr_result = decode(img_bw)
+
+#     #print (qr_result)
+#     if len(qr_result):
+#         qr_data = qr_result[0].data
+#         print (qr_data)
+
+#         (x, y, w, h) = qr_result[0].rect
+
+#         #cv2.rectangle(resized_image, (x, y), (x + w, y + h), (0, 0, 255), 4)
+#         cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 4)
+
+#         text = "{}".format(qr_data)
+#         # cv2.putText(resized_image, text, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+#         # cv2.imshow("Camera output", resized_image)
+#         cv2.putText(image, text, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+#         cv2.imshow("Camera output", image)
+
+#         cv2.waitKey(5)
+
+# # def main():
+# # 	camera_1()
+	
+# # 	try:
+# # 		rospy.spin()
+# # 	except KeyboardInterrupt:
+# # 		rospy.loginfo("Shutting down")
+	
+# # 	cv2.destroyAllWindows()
+
+# if __name__ == '__main__':
+#     rospy.init_node('camera_read', anonymous=False)
+#     main()
+
+
+
+# # from __future__ import division
+
+# # import math
+# # import rospy
+# # import std_msgs.msg
+# # from math import pi, asin, acos, atan
+
+# # import cv2 as cv
+# # import numpy as np
+# # import sys
+# # sys.path.append('/home/qwe/catkin_ws/src/spmr02/nodes/src')
+
+# # from sensor_msgs.msg import Image
+# # from cv_bridge import CvBridge, CvBridgeError
+# # from pyzbar.pyzbar import decode
+
+# # import time
+              
+# # class cordinate_claculator:
+
+# #     def __init__(self): # ! 카메라
+
+# #         self.x_L = 'NaN'
+# #         self.y_L = 'NaN'
+# #         self.theta_L = 'NaN'
+        
+# #         self.amr_cam2center_length = 0
+# #         self.amr_cam2center_width = 13190
+
+# #         self.camera_L = ("/L_camera/L_camera_image_raw")
+        
+# #         self.image_sub = rospy.Subscriber(self.camera_L, Image, self.gazebo_callback)
+# #         print ("0\n")
+
+# #         if len(self.qr_result):
+# #             self.qr_data = self.qr_result[0].data
+# #             print (self.qr_data)
+
+# #             (x, y, w, h) = self.qr_result[0].rect
+
+# #             cv.rectangle(self.image, (x, y), (x + w, y + h), (0, 0, 255), 4)
+
+# #             text = "{}".format(self.qr_data)
+# #             cv.putText(self.image, text, (x, y - 10), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+# #             cv.imshow("Camera output", self.image)
+
+# #             cv.waitKey(5)
+# #     '''
+# #     def main(self):
+# #         # ! 인식, 저장, 위치 계산, | 오차 계산, 결과 퍼블리쉬, 저장 명령 수신, 계산 명령 수신
+# #         while(1):
+# #             self.x, self.y, self.theta =  self.cal_coordinate()
+
+# #             print(self.x, self.y, self.theta, '\n')
+
+# #             time.sleep(1)
+# #     '''
+# #     def gazebo_callback(self, data):
+# #             print ("1")
+# #             bridge = CvBridge()
+# #             print ("2")
+
+# #             # cv_image = bridge.imgmsg_to_cv2(data, desired_encoding="bgr8")
+# #             # print ("3\n")
+            
+# #             try:
+# #                 cv_image = bridge.imgmsg_to_cv2(data, desired_encoding="bgr8")
+# #                 print ("3")
+# #             except CvBridgeError as e:
+# #                 rospy.logerr(e)
+# #                 print ("E",e)
+                
+# #             (rows,cols,channels) = cv_image.shape
+# #             print ("4")
+# #             self.image = cv.resize(cv_image,(1280,800))
+
+
+# #             print ("5\n")
+# #             gray = cv.cvtColor(self.image, cv.COLOR_BGR2GRAY)
+# #             thresh = 40
+# #             img_bw = cv.threshold(gray, thresh, 255, cv.THRESH_BINARY)[1]
+
+# #             self.self.qr_result = decode(img_bw)
+    
+    
+# # def main():
+# # 	cordinate_claculator()
+	
+# # 	try:
+# # 		rospy.spin()
+# # 	except KeyboardInterrupt:
+# # 		rospy.loginfo("Shutting down")
+	
+# # 	cv.destroyAllWindows()
+
+# # if __name__ == '__main__':
+# #     rospy.init_node('camera_read', anonymous=False)
+# #     main()
+
+

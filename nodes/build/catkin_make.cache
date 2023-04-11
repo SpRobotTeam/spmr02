@@ -1,0 +1,2 @@
+
+-DCATKIN_DEVEL_PREFIX=/home/qwe/catkin_ws/src/spmr02/nodes/devel -DCMAKE_INSTALL_PREFIX=/home/qwe/catkin_ws/src/spmr02/nodes/install -G Unix Makefiles

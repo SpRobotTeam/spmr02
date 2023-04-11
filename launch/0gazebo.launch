@@ -16,7 +16,6 @@
 
       <include file="$(find gazebo_ros)/launch/empty_world.launch">
             <!-- <arg name="world_name" value="$(find test_mr)/worlds/room.world"/> -->
-            <!-- <arg name="world_name" value="$(find spmr02)/worlds/0.sdf"/> -->
             <arg name="world_name" value="$(find spmr02)/worlds/0.sdf"/>
             <arg name="paused" value="false"/>
             <arg name="use_sim_time" value="true"/>
@@ -56,9 +55,6 @@
       
       <node name="spmr_coordinate_calc" pkg="spmr02" type="spmr_coordinate_calc" 
             respawn="true" output="screen"/>  
-
-      <!-- <node name="spmr_std_visualizer" pkg="spmr02" type="spmr_std_visualizer" 
-            respawn="true" output="screen"/>   -->
 
       <!-- <node name="spmr_coordinate_calc" pkg="spmr02" type="spmr_coordinate_calc" 
             respawn="true" output="screen" 

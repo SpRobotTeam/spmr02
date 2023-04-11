@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<launch>
+
+      <arg name="x_pos" default="0.0"/>
+      <arg name="y_pos" default="0.0"/>
+      <arg name="z_pos" default="1.0"/>
+
+      <include file="$(find spmr02)/launch/nodes.launch"/>
+      <include file="$(find spmr02)/launch/rivzRun.launch"/>
+      <include file="$(find spmr02)/launch/jointStates.launch"/>
+
+      <include file="$(find gazebo_ros)/launch/empty_world.launch">
+            <!-- <arg name="world_name" value="$(find test_mr)/worlds/room.world"/> -->
+            <arg name="paused" value="false"/>
+            <arg name="use_sim_time" value="true"/>
+            <arg name="gui" value="true"/>
+            <arg name="headless" value="false"/>
+            <arg name="debug" value="false"/>
+      </include>
+
+      <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf 
+                                                                        -model spmr02 
+                                                                        -x $(arg x_pos)
+                                                                        -y $(arg y_pos)
+                                                                        -z $(arg z_pos)
+                                                                        -param robot_description" />
+
+      <rosparam file="$(find spmr02)/config/controller_common.yaml" command="load"/>
+      <rosparam file="$(find spmr02)/config/pid.yaml"               command="load"/>
+      <param name="robot_description" textfile="$(find spmr02)/urdf/spmr02.urdf" />
+
+
+      <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find spmr02)/config/view.rviz" /> -->
+
+      <!-- <node name="robot_state_publisher" pkg="robot_state_publisher"
+            type="robot_state_publisher">
+            <param name="publish_frequency" value="10.0"/>
+      </node> -->
+
+
+      <!-- <node name="joint_state_publisher" pkg="joint_state_publisher"
+            type="joint_state_publisher">
+            <param name="use_gui" value="False" />
+            <param name="rate" value="10.0"/>
+      </node> -->
+
+      <!-- <node name="odom_publisher" pkg="diff_drive" type="diff_drive_odometry"
+            output="screen">
+      </node> -->
+
+</launch>

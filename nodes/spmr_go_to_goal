@@ -55,15 +55,15 @@ class GoToGoalNode:
         self.rate = rospy.Rate(rate)
         self.dT = 1 / rate
 
-        self.kP = rospy.get_param('~kP',     20.0)      # 3.0   30.0    15.0    20.0    20.0
+        self.kP = rospy.get_param('~kP',      20.0)      # 3.0   30.0    15.0    20.0    20.0
         self.kA = rospy.get_param('~kA',     200.0)      # 8.0   120.0   120.0   120.0   200.0
         self.kB = rospy.get_param('~kB',      -3.0)      #-1.5   -10.5   -50.5   -1.0    -3.0
         self.controller.set_constants(self.kP, self.kA, self.kB)
 
         self.controller.set_linear_tolerance(
-            rospy.get_param('~linear_tolerance', 0.05))        # 2.5cm
+            rospy.get_param('~linear_tolerance', 0.025))        # 2.5cm
         self.controller.set_angular_tolerance(
-            rospy.get_param('~angular_tolerance', 10/180*pi))    # 1 degrees
+            rospy.get_param('~angular_tolerance', 1/180*pi))    # 1 degrees
 
         self.controller.set_max_linear_speed(
             rospy.get_param('~max_linear_speed', 1.2))
@@ -84,8 +84,7 @@ class GoToGoalNode:
         # sensors are front-facing.
 
         self.controller.set_forward_movement_only(
-            # rospy.get_param('~forwardMovementOnly', True))
-            rospy.get_param('~forwardMovementOnly', False))
+            rospy.get_param('~forwardMovementOnly', True))
 
         self.init_pose()
         self.goal = None

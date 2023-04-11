@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+  <node
+    name="spmr_go_to_goal"
+    pkg="spmr02"
+    type="spmr_go_to_goal" 
+    respawn="true" 
+    output="screen"
+  />
+  <node 
+    name="spmr_canopen" 
+    pkg="spmr02" 
+    type="spmr_canopen" 
+    respawn="true" 
+    output="screen"
+  />
+</launch>
