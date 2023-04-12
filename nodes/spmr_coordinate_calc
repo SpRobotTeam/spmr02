@@ -1,0 +1,539 @@
+#!/usr/bin/env python3
+
+import rospy
+
+import numpy as np
+import math
+import time
+
+from std_msgs.msg import Bool, String, Float32MultiArray
+from geometry_msgs.msg import PoseStamped
+
+from collections import Counter
+ 
+class coordinate_cal:
+     def __init__(self):
+         self.arg = 'gazebo'
+
+         self.qr_size_mm = 50
+
+         self.W = 0.6595 *2 *1000 # mm
+
+         if (self.arg == 'gazebo'):
+             self.tvec_gazebo_sim = np.array([-1,-1,1])
+             self.gazebo_sim = True
+             self.rvec_gazebo_bias = np.array([0,0,math.pi])
+             self.L = 0
+
+             self.Hz = rospy.Rate(1)
+         else:
+             self.tvec_gazebo_sim = np.array([1,1,1])
+             self.gazebo_sim = False
+             self.rvec_gazebo_bias = np.zeros(3)
+             self.L = 0
+
+             self.Hz = rospy.Rate(1)
+
+         self.goal_num = 0
+         self.goal_point_dict = {'01':[0,0,0], '03':[0.025,0,0], '05':[0,0,0.036216], '07':[0,0.015,math.pi/2], '09':[ -0.00312239, -0.00440463, 1.530964159]} # {[0,0,0], [0.025,0,0], [0,0,0.036216], [0,0.015,math.pi/2], [-0.0336135,-0.0082065,1.5121545]} #   10.676689, -9.965228      9.256084, -10.018359  
+         self.goal_position = [[[0,0,0.1328],[0,0,0,0]], [[10,10,0.1328],[0,0,0,0]], [[-10,10,0.1328],[0,0,1,0]], [[-10,-10,0.1328],[0,0,0.70710678,0.70710678]], [[10,-10,0.1328],[0,0,0.70710678,0.70710678]]]
+               
+         self.qr_coord_dict = {}
+         self.amr_coord_list = [] 
+         self.amr_error_list = []
+         self.amr_std_list = []
+
+         self.node_name = rospy.get_name()
+         rospy.loginfo("{0} started".format(self.node_name))
+
+        
+         self.coord_L_sub = rospy.Subscriber("tracker_L/got_qr_coord_L", Bool, self.callback_got_qr_coord_L)
+         self.qr_data_L_sub = rospy.Subscriber("tracker_L/qr_data_L", String, self.callback_qr_data_L)
+         self.qr_data_L = ''
+        
+         self.tvec_L_sub = rospy.Subscriber("tracker_L/tvec_pub_L", Float32MultiArray, self.callback_tvec_L)
+         self.rvec_L_sub = rospy.Subscriber("tracker_L/rvec_pub_L", Float32MultiArray, self.callback_rvec_L)
+
+         self.coord_R_sub = rospy.Subscriber("tracker_R/got_qr_coord_R", Bool, self.callback_got_qr_coord_R)
+         self.qr_data_R_sub = rospy.Subscriber("tracker_R/qr_data_R", String, self.callback_qr_data_R)
+         self.qr_data_R = ''
+
+         self.tvec_R_sub = rospy.Subscriber("tracker_R/tvec_pub_R", Float32MultiArray, self.callback_tvec_R)
+         self.rvec_R_sub = rospy.Subscriber("tracker_R/rvec_pub_R", Float32MultiArray, self.callback_rvec_R)
+
+         self.goal_achieved_sub = rospy.Subscriber("/goal_achieved", Bool, self.callback_goal_achieved)
+         self.goal_achieved = False
+
+        #  self.qr_ID_pub = rospy.Publisher("coordinate_calc/qr_ID_pub", String,  queue_size=10)
+         self.qr_coord_pub = rospy.Publisher("coordinate_calc/qr_coord_pub", String,  queue_size=10)
+         self.amr_coord_pub = rospy.Publisher("coordinate_calc/amr_coord_pub", String,  queue_size=10)
+         self.error_pub = rospy.Publisher("coordinate_calc/error_pub", String,  queue_size=10)
+         self.std_pub = rospy.Publisher("coordinate_calc/std_pub", String,  queue_size=10)
+         self.state_pub = rospy.Publisher("coordinate_calc/state_pub", Bool,  queue_size=10)
+
+        #  self.go_to_goal_pub = rospy.Publisher('diff_drive_go_to_goal/goal',
+        #  self.go_to_goal_pub = rospy.Publisher('move_base_simple/goal', PoseStamped, queue_size=10)
+
+         self.x = 0
+         self.y = 0
+         self.theta = 0
+         
+        #  self.pose_estimation()
+
+         self.goal_pose = PoseStamped()
+         self.goal_pose.pose.position.x, self.goal_pose.pose.position.y, self.goal_pose.pose.position.z = self.goal_position[0][0]
+         self.goal_pose.pose.orientation.x, self.goal_pose.pose.orientation.y, self.goal_pose.pose.orientation.z, self.goal_pose.pose.orientation.w = self.goal_position[0][1] 
+         
+        #  self.go_to_goal_pub.publish(self.goal_pose)
+
+    
+     def callback_goal_achieved(self, data):
+         flag = False
+         self.goal_achieved = data.data
+         average_of_amr_coord = [0,0,0]
+         # print('goal achieved : ', self.goal_achieved)
+         if data.data:
+             self.temp_amr_coord = []
+             for self.t in range(3):                 
+                 flag = self.pose_estimation()
+                 if flag:   
+                    break
+            
+             if flag:
+                self.publish(False)
+             else:
+                try:
+                    for i in range(3):
+                        average_of_amr_coord[i] = sum(v for v in list(zip(*self.temp_amr_coord))[i] if v != None) / len(list(v for v in list(zip(*self.temp_amr_coord)) if v != None))
+                    if (self.qr_data_L or self.qr_data_R) and self.x and self.y and self.theta:
+                        if self.qr_data_L:
+                            qr_ID = self.qr_data_L.split()[0]
+                        else :
+                            qr_ID = self.qr_data_R.split()[0]
+                        if not int(qr_ID[-2:])%2:
+                            qr_ID = qr_ID[:-2] + str("%02d"%(int(qr_ID[-2:])-1))
+                        self.append_amr_coord_list([qr_ID, average_of_amr_coord]) #[self.qr_data_L.split()[0], self.x, self.y, self.theta]
+                        self.error_calc()
+                        self.std_calc(qr_ID)
+                        #  self.qr_ID_pub.publish(qr_ID)
+                
+                    if self.goal_num == len(list(self.goal_point_dict.keys()))-1:
+                        self.goal_num = 0
+                        self.publish(True)
+                    else:
+                        self.goal_num += 1
+                    #  try:
+                    #      self.goal_pose = PoseStamped()
+                    #      self.goal_pose.pose.position.x, self.goal_pose.pose.position.y, self.goal_pose.pose.position.z = self.goal_position[self.goal_num][0]
+                    #      self.goal_pose.pose.orientation.x, self.goal_pose.pose.orientation.y, self.goal_pose.pose.orientation.z, self.goal_pose.pose.orientation.w = self.goal_position[self.goal_num][1] 
+                        
+                    #      self.go_to_goal_pub.publish(self.goal_pose)
+
+                        self.publish(True)
+                        
+                    #  except Exception as e:
+                    #      print ('unalbe to publish go_to_goal goal pose : ', e)
+                    #      self.publish(False)     
+                        
+                except IndexError as e:
+                    print ('\n unable to append amr_coord_list : unable to find the QR codes \n', e)
+                    #  self.go_to_goal_pub.publish(self.goal_pose)
+                    self.publish(False)
+
+             
+
+     def callback_got_qr_coord_L(self, data):
+         self.got_qr_coord_L = data.data
+
+     def callback_qr_data_L(self, data):
+         self.qr_data_L = data.data
+        #  try:
+        #      self.append_qr_coord_dict(self.qr_data_L.split()[0])
+        #  except:
+        #      pass
+
+     def callback_tvec_L(self, data):
+         data = np.array(data.data).reshape(-1)
+         if len(data) == 0:  #data  == []: -> len(data) == 0
+             self.tvec_L = None
+             self.ret_L = False
+         else:
+             self.tvec_L = data
+
+     def callback_rvec_L(self, data):
+         data = np.array(data.data).reshape(-1)
+         if len(data) == 0:
+             self.rvec_L = []
+             self.ret_L = False
+         else:
+             self.rvec_L = data
+
+     def callback_got_qr_coord_R(self, data):
+         self.got_qr_coord_R = data.data
+
+     def callback_qr_data_R(self, data):
+         self.qr_data_R = data.data
+        #  try:
+        #      self.append_qr_coord_dict(self.qr_data_R.split()[0])
+        #  except:
+        #      pass
+
+     def callback_tvec_R(self, data):
+         data = np.array(data.data).reshape(-1)
+         if len(data) == 0:
+             self.tvec_R = None
+             self.ret_R = False
+         else:
+             self.tvec_R = data*self.tvec_gazebo_sim
+
+     def callback_rvec_R(self, data):
+         data = np.array(data.data).reshape(-1)
+         if len(data) == 0:
+            self.rvec_R = []
+            self.ret_R = False
+         else:
+             rvec_R_Origin = data
+             if rvec_R_Origin == []:
+                 self.ret_R = False
+                 self.rvec_R = []
+             else:                 
+                 if self.gazebo_sim:
+                    #  # print (rvec_R_Origin)s
+                     sign_value = 1
+                     if rvec_R_Origin[-1]>0:
+                         sign_value = -1
+                     else:
+                         sign_value = 1
+
+                 self.rvec_R = rvec_R_Origin + (self.rvec_gazebo_bias * sign_value)
+             
+
+
+     def qr_orientation_set(self, qr_orientation):
+         if(qr_orientation == 'UP'):
+             return 1
+         elif(qr_orientation == 'DOWN'):
+             return -1
+         elif(qr_orientation == 'RIGHT'):
+             return -0.5
+         elif(qr_orientation == 'LEFT'):
+             return 0.5
+         else:
+             return None
+
+
+     def pose_estimation(self): # amr 위치 계산
+        #  while(1):
+             ret_L = ret_R = False
+             try:  #camL
+                 ret_L = self.got_qr_coord_L
+                 if ret_L:
+                     vDXL = self.tvec_L[0]
+                     vDYL = self.tvec_L[1]
+                     vDTHL = self.rvec_L[1]
+                     qr_orientation_L = self.qr_data_L.split()[-1]
+                 else:
+                     vDXL = vDYL = vDTHL = None
+                     print('camL_F')
+             except:
+                 ret_L = False
+                 self.tvec_L = []
+                 self.rvec_L = []
+                 self.qr_data_L = []
+                 vDXL = vDYL = vDTHL = None
+                 qr_orientation_L = None
+
+             try:  #camR
+                 ret_R = self.got_qr_coord_R
+                 if ret_R:
+                     vDXR = self.tvec_R[0]
+                     vDYR = self.tvec_R[1]
+                     vDTHR = self.rvec_R[1]
+                     qr_orientation_R = self.qr_data_R.split()[-1]
+                 else:
+                     vDXR = vDYR = vDTHR = None
+                     print('camR_F')
+             except:
+                 ret_R = False
+                 self.tvec_R = []
+                 self.rvec_R = []                 
+                 self.qr_data_R = []
+                 vDXR = vDYR = vDTHR = None
+                 qr_orientation_R = None
+            
+             if ret_L == False and ret_R == False: # 어느쪽 카메라도 QR코드를 찾지 못한 경우
+                 self.x = None
+                 self.y = None
+                 self.theta = None
+                 self.theta_degree = None
+                 print('camLR_F')
+                 return True
+             
+             else:
+                 if(self.arg == 'gazebo'):
+                     if ret_R and ret_L:  # 카메라 양쪽에서 QR코드를 찾은 경우 ##########################
+                         if (qr_orientation_L and qr_orientation_R ): # and not (vDXL or vDXR or vDYL or vDYR)): # or self.qr_orientation_set(qr_orientation_L) != self.qr_orientation_set(qr_orientation_R):
+                             qr_orientation = self.qr_orientation_set(qr_orientation_L)
+                            #  if self.qr_orientation_set(qr_orientation_L) != self.qr_orientation_set(qr_orientation_R):
+                            #      try:
+                            #          print('qr 방향 차 (L-R) = ', self.qr_orientation_set(qr_orientation_L)*math.pi - self.qr_orientation_set(qr_orientation_R))*math.pi
+                            #      except TypeError:
+                            #          pass
+                             
+                             if qr_orientation == 1:
+                                 qr_orientation_x_pi = 0
+                             else:
+                                 qr_orientation_x_pi = qr_orientation * math.pi
+                             try:
+                                 self.theta = math.atan(((-vDYL - vDYR )*1.4705)/(self.W - (vDXL + vDXR))) + qr_orientation_x_pi # (-vDYL - vDYR)*1.49
+                                 # print(f'atan (({-vDYL} - {vDYR})*1.4705) / ({self.W} - ({vDXL} + {vDXR})) = {self.theta}')
+                             except Exception:
+                                 self.theta = None
+                                 # print('calc_theta_error', self.tvec_L, self.rvec_L, self.rvec_R, self.tvec_R)
+
+                         else:
+                             self.theta = None 
+                             qr_orientation = 0
+                         
+                         if self.theta == None:
+                             self.x = None
+                             self.y = None
+                             self.theta_degree = None
+                             return True
+
+
+                         else:
+                             self.theta_degree = self.theta*180/math.pi
+                             if self.theta_degree<-180:
+                                 self.theta_degree = 360+self.theta_degree
+                             if qr_orientation == 1 or -1:
+                                 amr_orientation = qr_orientation
+                             else :
+                                 if self.theta >= 0 :
+                                     amr_orientation = self.theta + math.pi/2
+                                 else:
+                                     amr_orientation = self.theta - math.pi/2
+
+                             self.y = (((vDXL - vDXR)/2 * 0.8899)/1000 * amr_orientation - 0 * (1 - math.cos(self.theta))) #가제보 기준 좌우 ! * 0.44643
+                             # print("X = ", ((vDYL - vDYR)/2 * 1.4705 + 0.7)/1000 * amr_orientation )
+                             self.x = (((vDYL - vDYR)/2 * 1.4705 + 0.7)/1000 * amr_orientation ) * (1 + 0.35 * abs(self.y) * (1+math.cos(self.theta))/2*amr_orientation)  #가제보 기준 전후 /0.675  *1.4705
+                             
+                             print(([self.x,self.y,self.theta]))
+                             if None in [self.x,self.y,self.theta]:
+                                 return True
+                             else:
+                                 self.temp_amr_coord.append([self.x,self.y,self.theta])
+                            #  self.append_qr_coord_dict([self.qr_data_R.split()[0],self.x,self.y,self.theta,self.theta_degree])
+                        
+                     else:
+                        #  if ret_R:
+                        #      qr_orientation = self.qr_orientation_set(qr_orientation_R)
+                        #      vDY = vDXR
+                        #      vDX = vDXR
+                        #      vDTH = vDTHR
+                             
+                        #  elif ret_L:
+                        #      qr_orientation = self.qr_orientation_set(qr_orientation_L)
+                        #      vDY = vDXL
+                        #      vDX = vDXL
+                        #      vDTH = vDTHL
+                         
+                        #  else:
+                        #      vDY = None
+                        #      vDX = None
+                        #      vDTH = None
+                        #      qr_orientation = None
+
+                        #  if qr_orientation == None:
+                        #      self.theta = None
+
+                         return True
+
+                        #  self.publish(False)
+
+
+                         # print(qr_orientation, self.theta)
+
+                
+                     #  if (abs(self.theta) - abs(vDTHR)> math.pi/20.0):
+                     #      # print("\n theta 오차 이상\n")
+                #  try:
+                #      print([[vDXL,vDYL,vDTHL],[vDXR,vDYR,vDTHR]])
+                #  except Exception:
+                #      print('cal_F')
+                 # print(f'__________________________C\n X(전/후 m)\t{self.x}\n Y(좌/우 m)\t{self.y}\n 각 (rad)\t{self.theta}\n 각 (도)\t{self.theta_degree}\n__________________________\n')
+
+            #  try:
+            #      print ('__________________________C\n', self.tvec_L, '\n', self.rvec_L, '\n', self.qr_data_L, '\n', self.tvec_R, '\n', self.rvec_R, '\n', self.qr_data_R, '\n__________________________\n')
+            #  except AttributeError as e:
+            #      print ('\n calc N/A \n', e)
+                
+             self.Hz.sleep()
+
+
+     def append_qr_coord_dict(self, data): #qr 딕셔너리 !
+         try:
+            qr_ID = data[0]
+            # qr_data = data[1:-1]
+         except Exception:
+            qr_ID = None
+
+         if qr_ID:
+            #  if int(qr_ID[-2:]) % 2:
+            #      paired_qr_ID = qr_ID
+            #  else:
+            #      paired_qr_ID = (qr_ID[:-2]+ str("%02d"%(int(qr_ID[-2:])-1))) #QR코드 쌍 존재 확인(숫자가 하나 적은 홀수 코드)
+             paired_qr_ID = qr_ID
+             
+             if(qr_ID in self.qr_coord_dict.keys()): # 등록된 이름은 생략
+                self.qr_coord_pub.publish(str(self.goal_point_dict[qr_ID]))
+
+             else: #신규 둥록
+                # self.qr_coord_dict[qr_ID] = qr_data 
+                self.qr_coord_dict[qr_ID] = [self.x, self.y, self.theta]
+             try:
+                #  paired_qr_ID = (qr_ID[:-2]+ str("%02d"%(int(qr_ID[-2:])-1))) #QR코드 쌍 존재 확인(숫자가 하나 적은 홀수 코드)
+                
+                 if (paired_qr_ID in self.qr_coord_dict.keys()): # and (int(paired_qr_ID[-2:])%2):
+                    
+                    #  goal_point_data = []
+                
+                    #  for i, j in zip(self.qr_coord_dict[qr_ID][1:], self.qr_coord_dict[paired_qr_ID][1:]): # 중간값(평균)을 통한 목표 좌표 산출
+                    #      goal_point_data.append(i+j/2.0)
+                     if not (paired_qr_ID in self.goal_point_dict.keys() or paired_qr_ID[-2:] in self.goal_point_dict.keys()):
+                         goal_point_data = self.qr_coord_dict[paired_qr_ID]
+                     
+                         if len(paired_qr_ID) > 2:
+                             self.append_goal_point_dict([paired_qr_ID[:-2]]+goal_point_data) # 목표 위치 딕셔너리 생성
+                             
+                         else:
+                             self.append_goal_point_dict([paired_qr_ID]+goal_point_data)
+
+                         self.qr_coord_pub.publish(str(self.goal_point_dict[paired_qr_ID]))
+                     else:
+                         self.qr_coord_pub.publish(str(self.goal_point_dict[paired_qr_ID]))
+
+                        #  self.qr_coord_msg = Float32MultiArray()
+                        #  self.qr_coord_msg.data = np.array(self.qr_coord_dict[paired_qr_ID]).flatten().tolist().reshape(-1)
+                         
+             except:
+                 pass
+             
+
+            #  # print("qr_dict\n", self.qr_coord_dict, '\n')
+             
+
+     def append_goal_point_dict(self, data, amr_on_goal_point = False): #amr 목표 위치 딕셔너리 생성
+         goal_point_name = data[0]
+        #  goal_point_data = data[1:]
+         goal_point_data = [self.x, self.y, self.theta]
+
+         if(goal_point_name in self.goal_point_dict.keys()):
+             pass   
+         else: 
+             if self.goal_achieved:
+                 self.goal_point_dict[goal_point_name] = goal_point_data # + self.tvec_L + self.rvec_L + self.tvec_R + self.rvec_R
+            #  else:     
+            #      self.goal_point_dict[goal_point_name] = goal_point_data
+
+        #  # print("goal_dict\n", self.goal_point_dict, '\n')
+             
+     
+     def append_amr_coord_list(self, data): #amr 실제 도달 값 리스트 생성
+         target_goal_point_name = data[0]
+         amr_coord_data = data[1:]
+         try:
+             if int(target_goal_point_name[-2:]) > 0 and not ( int(target_goal_point_name[-2:]) % 2):
+                 # print('from : ', target_goal_point_name)
+                 target_goal_point_name = target_goal_point_name[:-2] + str("%02d"%(int(target_goal_point_name[-2:])-1))
+         except:
+             pass
+        #  print('_____________________ C\n',target_goal_point_name)
+         
+         try:
+             count_sample = Counter(list(zip(*self.amr_coord_list))[0])[target_goal_point_name]
+             
+             # print(count_sample)
+         except:
+             count_sample = 0
+             # print(count_sample)
+         self.amr_coord_list.append([target_goal_point_name] + [("%06d" % (int(count_sample)+1))] + amr_coord_data)
+         self.amr_coord_pub.publish(str(self.amr_coord_list[-1][:-1]+[[*self.amr_coord_list[-1][-1],self.amr_coord_list[-1][-1][-1]*180/math.pi]]))
+        #  self.amr_coord_msg = Float32MultiArray()
+        #  self.amr_coord_msg.data = np.array([float(self.amr_coord_list[-1][1]) ,np.array(self.amr_coord_list[-1][2:-1].reshape)]).flatten().tolist().reshape(-1)
+     
+        #  # print(Counter(list(zip(*self.amr_coord_list))[0]))
+         print('_____________________A[-1] \n',self.amr_coord_list[-1])
+
+        #  # print("amr_coord_list\n", self.amr_coord_list, '\n')
+        #  # print('\n\n',[("%06d" % len(self.amr_coord_list))]+[target_goal_point_name]+[amr_coord_data], '\n\n')
+              
+
+     def error_calc(self):
+         if len(self.amr_coord_list):
+             self.amr_error_list.append( self.amr_coord_list[-1][:-1] + [[amr_coord - goal_coord for amr_coord, goal_coord in zip(self.amr_coord_list[-1][2] , self.goal_point_dict[self.amr_coord_list[-1][0]])]])
+             self.error_pub.publish(str(self.amr_error_list[-1][:-1]+[[*self.amr_error_list[-1][-1],self.amr_error_list[-1][-1][-1]*180/math.pi]]))
+            #  self.error_msg = Float32MultiArray()
+            #  self.error_msg.data = np.array(self.amr_error_list[-1][1:]).flatten().tolist().reshape(-1)
+             print('_____________________E[-1] \n', self.amr_error_list[-1])
+
+    
+     def std_calc(self, qr_ID):
+         if len(self.amr_coord_list):
+             std = [0,0,0]
+             amr_coord_list = [self.amr_coord_list[i][2] for i in range(len(self.amr_coord_list)) \
+                                    if (self.amr_coord_list[i][0] == qr_ID)]
+            #  amr_coord_list =[]
+            #  for i in range(len(self.amr_coord_list)):
+            #      print (self.amr_coord_list[i][0], str(self.qr_data_L)[:-3], str(self.qr_data_R)[:-3])
+            #      if (self.amr_coord_list[i][0] == str(self.qr_data_L)[:-3] or self.amr_coord_list[i][0] == str(self.qr_data_R)[:-3]):
+            #          amr_coord_list.append(self.amr_coord_list[i][2])
+             print ('std_\n',amr_coord_list)
+             for c in range(3):
+                 std[c] = np.std(list(zip(*amr_coord_list))[c])
+                 print ('std_list\n',std)
+             if np.NaN in std: # !
+                 print('std_F')
+             else:
+                 try:
+                     self.amr_std_list[list(zip(*self.amr_std_list))[0].index(qr_ID)] = [qr_ID , std]
+                 except:
+                     self.amr_std_list.append([qr_ID , std])
+                 self.std_pub.publish(str(self.amr_std_list[list(zip(*self.amr_std_list))[0].index(qr_ID)]))
+            #  self.std_msg = Float32MultiArray()
+            #  self.std_msg.data = np.array(self.amr_std_list[-1][1:]).flatten().tolist().reshape(-1)
+                 print ('_____________________S \n', self.amr_std_list, '\n_____________________ \n')
+   
+
+     def publish(self, ret):
+         if ret:
+             self.state_pub.publish(True)
+            #  self.amr_coord_pub.publish(self.amr_coord_msg)
+            #  self.qr_coord_pub.publish(self.qr_coord_msg)
+            #  self.error_pub.publish(self.error_msg)
+            #  self.std_pub.publish(self.std_msg)
+
+         else:
+             self.state_pub.publish(False)
+            #  self.amr_coord_pub.publish(np.array([], dtype = 'float32'))
+            #  self.qr_coord_pub.publish(np.array([], dtype = 'float32'))
+            #  self.error_pub.publish(np.array([], dtype = 'float32'))
+            #  self.std_pub.publish(np.array([], dtype = 'float32'))
+             self.amr_coord_pub.publish('')
+             self.qr_coord_pub.publish('')
+             self.error_pub.publish('')
+             self.std_pub.publish('')
+
+
+def main():
+     coordinate_cal()
+
+     try:
+         rospy.spin()
+     except KeyboardInterrupt:
+         rospy.loginfo("Shutting down")
+
+
+if __name__ == '__main__':
+     rospy.init_node('camera_read', anonymous=True)
+     main()

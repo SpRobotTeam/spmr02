@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+
+      <node name="robot_state_publisher" pkg="robot_state_publisher"
+            type="robot_state_publisher">
+            <param name="publish_frequency" value="10.0"/>
+      </node>
+
+
+      <!-- <node name="joint_state_publisher" pkg="joint_state_publisher"
+            type="joint_state_publisher">
+            <param name="use_gui" value="False" />
+            <param name="rate" value="10.0"/>
+      </node> -->
+
+      <!-- <node name="odom_publisher" pkg="diff_drive" type="diff_drive_odometry"
+            output="screen">
+      </node> -->
+
+</launch>

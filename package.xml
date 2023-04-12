@@ -1,20 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <package format="2">
   <name>spmr02</name>
   <version>1.0.0</version>
   <description>
     <p>URDF Description package for spmr02</p>
-    <p>This package contains configuration data, 3D models and launch files
-for spmr02 robot</p>
+    <p>This package contains configuration data, 3D models and launch files for spmr02 robot</p>
+    <p>This package implements a control mechanism for a differential drive robot.</p>
   </description>
   <author>TODO</author>
   <maintainer email="TODO@email.com" />
   <license>BSD</license>
   <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>rospy</exec_depend>
+
   <depend>roslaunch</depend>
   <depend>robot_state_publisher</depend>
   <depend>rviz</depend>
   <depend>joint_state_publisher_gui</depend>
   <depend>gazebo</depend>
+
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>actionlib_msgs</depend>
+  <build_depend>rostest</build_depend>
+  <depend>message_generation</depend>
+
   <export>
     <architecture_independent />
   </export>

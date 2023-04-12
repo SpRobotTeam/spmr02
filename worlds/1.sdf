@@ -1,0 +1,4518 @@
+<sdf version='1.7'>
+  <world name='default'>
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose>0 0 10 0 -0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+    <model name='ground_plane'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>65535</collide_bitmask>
+              <ode/>
+            </contact>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <physics type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+    <wind/>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <model name='QR01'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.009933 0.011736 0 0 -0 0</pose>
+    </model>
+    <model name='QR01_clone'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.026162 0.102108 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_0'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.026843 0.198829 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_1'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.026782 0.301168 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_2'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.030021 0.398452 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_3'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.03089 0.4967 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_4'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.030821 0.598135 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_5'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.026786 0.695571 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_6'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.025211 0.792707 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_7'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.028407 0.907304 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_8'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.11836 0.100675 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_9'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.122473 0.201752 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_10'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.126326 0.300591 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_11'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.128244 0.401272 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_12'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.127499 0.49795 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_13'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.127495 0.599861 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_14'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.13754 0.694951 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_15'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.135349 0.796194 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_16'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.138444 0.904337 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_17'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.228848 0.095798 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_18'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.228088 0.197643 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_19'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.229341 0.296742 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_20'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.226836 0.401776 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_21'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.232815 0.501487 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_22'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.233802 0.597426 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_23'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.243251 0.68857 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_24'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.243205 0.793645 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_25'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.252373 0.899939 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_26'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.345995 0.088331 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_27'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.342578 0.192677 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_28'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.339179 0.296432 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_29'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.33997 0.395086 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_30'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.343599 0.497068 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_31'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.341538 0.591168 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_32'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.344138 0.684519 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_33'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.361981 0.786806 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_34'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.367279 0.901382 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_35'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.484625 0.902874 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_36'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.482327 0.789822 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_37'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.472953 0.678743 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_38'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.466942 0.593707 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_39'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.466163 0.491738 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_40'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.463707 0.395624 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_41'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.46755 0.290114 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_42'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.466752 0.186734 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_43'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.468416 0.082504 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_44'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.113459 0.896449 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_45'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.126658 0.793735 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_46'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.134812 0.699781 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_47'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.11847 0.596317 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_48'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.125169 0.497767 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_49'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.133845 0.399234 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_50'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.147155 0.295659 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_51'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.146286 0.193474 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_52'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.151079 0.093646 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_53'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.272372 0.097629 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_54'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.271252 0.195756 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_55'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.279679 0.29305 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_56'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.28486 0.414243 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_57'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.28368 0.496374 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_58'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.279349 0.602802 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_59'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.268283 0.688912 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_60'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.273883 0.789972 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_61'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.284925 0.890448 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_62'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.361395 0.882645 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_63'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.383019 0.779891 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_64'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.389575 0.676599 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_65'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.401812 0.590085 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_66'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.410621 0.489168 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_67'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.415358 0.401996 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_68'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.415241 0.290384 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_69'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.395917 0.190225 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_70'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.409034 0.096206 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_71'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.52683 0.098785 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_72'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.536352 0.18941 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_73'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.551748 0.291864 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_74'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.555903 0.406324 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_75'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.562093 0.501882 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_76'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.559485 0.589429 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_77'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.561331 0.658646 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_78'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.565433 0.771268 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_79'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.56181 0.86719 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <state world_name='default'>
+      <sim_time>76844 815000000</sim_time>
+      <real_time>76927 942453899</real_time>
+      <wall_time>1679962909 101390939</wall_time>
+      <iterations>76844815</iterations>
+      <model name='QR01'>
+        <pose>0.025 0 0 3.14159 1.57079 -3e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 0 0 3.14159 1.57079 -3e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone'>
+        <pose>0.025 0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_0'>
+        <pose>0.025 0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_1'>
+        <pose>0.025 0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_10'>
+        <pose>0.125 0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_100'>
+        <pose>0.225 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_101'>
+        <pose>0.225 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_102'>
+        <pose>0.225 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_103'>
+        <pose>0.225 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_104'>
+        <pose>0.225 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_105'>
+        <pose>0.225 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_106'>
+        <pose>0.225 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_107'>
+        <pose>0.125 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_108'>
+        <pose>0.125 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_109'>
+        <pose>0.125 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_11'>
+        <pose>0.125 0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_110'>
+        <pose>0.125 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_111'>
+        <pose>0.125 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_112'>
+        <pose>0.125 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_113'>
+        <pose>0.125 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_114'>
+        <pose>0.125 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_115'>
+        <pose>0.125 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_116'>
+        <pose>0.025 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_117'>
+        <pose>0.025 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_118'>
+        <pose>0.025 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_119'>
+        <pose>0.025 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_12'>
+        <pose>0.125 0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_120'>
+        <pose>0.025 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_121'>
+        <pose>0.025 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_122'>
+        <pose>0.025 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_123'>
+        <pose>0.025 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_124'>
+        <pose>0.025 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_125'>
+        <pose>-0.075 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_126'>
+        <pose>-0.075 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_127'>
+        <pose>-0.075 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_128'>
+        <pose>-0.075 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_129'>
+        <pose>-0.075 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_13'>
+        <pose>0.125 0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_130'>
+        <pose>-0.075 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_131'>
+        <pose>-0.075 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_132'>
+        <pose>-0.075 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_133'>
+        <pose>-0.075 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_134'>
+        <pose>-0.175 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_135'>
+        <pose>-0.175 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_136'>
+        <pose>-0.175 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_137'>
+        <pose>-0.175 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_138'>
+        <pose>-0.175 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_139'>
+        <pose>-0.175 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_14'>
+        <pose>0.125 0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_140'>
+        <pose>-0.175 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_141'>
+        <pose>-0.175 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_142'>
+        <pose>-0.175 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_143'>
+        <pose>-0.275 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_144'>
+        <pose>-0.275 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_145'>
+        <pose>-0.275 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_146'>
+        <pose>-0.275 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_147'>
+        <pose>-0.275 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_148'>
+        <pose>-0.275 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_149'>
+        <pose>-0.275 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_15'>
+        <pose>0.125 0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_150'>
+        <pose>-0.275 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_151'>
+        <pose>-0.275 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_152'>
+        <pose>-0.375 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_153'>
+        <pose>-0.375 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_154'>
+        <pose>-0.375 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_155'>
+        <pose>-0.375 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_156'>
+        <pose>-0.375 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_157'>
+        <pose>-0.375 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_158'>
+        <pose>-0.375 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_159'>
+        <pose>-0.375 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_16'>
+        <pose>0.125 0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_160'>
+        <pose>-0.375 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_17'>
+        <pose>0.225 0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_18'>
+        <pose>0.225 0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_19'>
+        <pose>0.225 0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_2'>
+        <pose>0.025 0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_20'>
+        <pose>0.225 0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_21'>
+        <pose>0.225 0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_22'>
+        <pose>0.225 0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_23'>
+        <pose>0.225 0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_24'>
+        <pose>0.225 0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_25'>
+        <pose>0.225 0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_26'>
+        <pose>0.325 0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_27'>
+        <pose>0.325 0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_28'>
+        <pose>0.325 0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_29'>
+        <pose>0.325 0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_3'>
+        <pose>0.025 0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_30'>
+        <pose>0.325 0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_31'>
+        <pose>0.325 0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_32'>
+        <pose>0.325 0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_33'>
+        <pose>0.325 0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_34'>
+        <pose>0.325 0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_35'>
+        <pose>0.425 0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_36'>
+        <pose>0.425 0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_37'>
+        <pose>0.425 0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_38'>
+        <pose>0.425 0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_39'>
+        <pose>0.425 0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_4'>
+        <pose>0.025 0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_40'>
+        <pose>0.425 0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_41'>
+        <pose>0.425 0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_42'>
+        <pose>0.425 0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_43'>
+        <pose>0.425 0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_44'>
+        <pose>-0.075 0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_45'>
+        <pose>-0.075 0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_46'>
+        <pose>-0.075 0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_47'>
+        <pose>-0.075 0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_48'>
+        <pose>-0.075 0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_49'>
+        <pose>-0.075 0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_5'>
+        <pose>0.025 0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_50'>
+        <pose>-0.075 0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_51'>
+        <pose>-0.075 0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_52'>
+        <pose>-0.075 0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.075 0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_53'>
+        <pose>-0.175 0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_54'>
+        <pose>-0.175 0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_55'>
+        <pose>-0.175 0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_56'>
+        <pose>-0.175 0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_57'>
+        <pose>-0.175 0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_58'>
+        <pose>-0.175 0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_59'>
+        <pose>-0.175 0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_6'>
+        <pose>0.025 0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_60'>
+        <pose>-0.175 0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_61'>
+        <pose>-0.175 0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.175 0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_62'>
+        <pose>-0.275 0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_63'>
+        <pose>-0.275 0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_64'>
+        <pose>-0.275 0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_65'>
+        <pose>-0.275 0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_66'>
+        <pose>-0.275 0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_67'>
+        <pose>-0.275 0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_68'>
+        <pose>-0.275 0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_69'>
+        <pose>-0.275 0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_7'>
+        <pose>0.025 0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.025 0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_70'>
+        <pose>-0.275 0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.275 0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_71'>
+        <pose>-0.375 0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_72'>
+        <pose>-0.375 0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_73'>
+        <pose>-0.375 0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_74'>
+        <pose>-0.375 0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_75'>
+        <pose>-0.375 0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_76'>
+        <pose>-0.375 0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_77'>
+        <pose>-0.375 0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_78'>
+        <pose>-0.375 0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_79'>
+        <pose>-0.375 0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>-0.375 0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_8'>
+        <pose>0.125 0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_80'>
+        <pose>0.425 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_81'>
+        <pose>0.425 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_82'>
+        <pose>0.425 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_83'>
+        <pose>0.425 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_84'>
+        <pose>0.425 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_85'>
+        <pose>0.425 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_86'>
+        <pose>0.425 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_87'>
+        <pose>0.425 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_88'>
+        <pose>0.425 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.425 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_89'>
+        <pose>0.325 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_9'>
+        <pose>0.125 0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.125 0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_90'>
+        <pose>0.325 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_91'>
+        <pose>0.325 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 -0.3 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_92'>
+        <pose>0.325 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 -0.4 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_93'>
+        <pose>0.325 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 -0.5 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_94'>
+        <pose>0.325 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 -0.6 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_95'>
+        <pose>0.325 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 -0.7 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_96'>
+        <pose>0.325 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 -0.8 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_97'>
+        <pose>0.325 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.325 -0.9 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_98'>
+        <pose>0.225 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 -0.1 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='QR01_clone_99'>
+        <pose>0.225 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.225 -0.2 0 -3.14159 1.57079 -1e-06</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='ground_plane'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <light name='sun'>
+        <pose>0 0 10 0 -0 0</pose>
+      </light>
+    </state>
+    <model name='QR01_clone_80'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.428497 -0.106881 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_81'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.424881 -0.215335 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_82'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.427318 -0.327529 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_83'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.427768 -0.438742 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_84'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.430025 -0.555101 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_85'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.432497 -0.669397 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_86'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.438833 -0.791057 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_87'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.440947 -0.912677 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_88'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.443689 -0.99606 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_89'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.319486 -0.106216 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_90'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.320042 -0.207341 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_91'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.322368 -0.311871 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_92'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.320483 -0.420544 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_93'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.322918 -0.524899 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_94'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.32566 -0.625825 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_95'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.324455 -0.726437 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_96'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.323046 -0.830152 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_97'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.321342 -0.938357 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_98'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.223221 -0.102032 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_99'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.213943 -0.205879 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_100'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.215304 -0.314731 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_101'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.218604 -0.423199 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_102'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.220553 -0.525551 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_103'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.216975 -0.627331 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_104'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.217551 -0.72369 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_105'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.213575 -0.831349 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_106'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.223056 -0.936848 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_107'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.129159 -0.099359 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_108'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.12317 -0.206607 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_109'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.127767 -0.311376 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_110'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.123201 -0.423295 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_111'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.1229 -0.524712 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_112'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.127626 -0.630306 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_113'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.128137 -0.722601 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_114'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.129682 -0.824838 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_115'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.135395 -0.919791 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_116'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.034256 -0.097518 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_117'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.031448 -0.204062 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_118'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.025494 -0.309357 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_119'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.030832 -0.416531 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_120'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.02656 -0.521561 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_121'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.033032 -0.63809 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_122'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.030425 -0.720515 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_123'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.029209 -0.83012 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_124'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.030877 -0.923365 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_125'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.07191 -0.100978 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_126'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.080757 -0.203117 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_127'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.085219 -0.306869 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_128'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.096305 -0.419289 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_129'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.093615 -0.528311 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_130'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.092059 -0.633064 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_131'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.08105 -0.713173 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_132'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.07336 -0.821378 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_133'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.075486 -0.917517 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_134'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.180294 -0.104732 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_135'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.179399 -0.208308 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_136'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.176698 -0.307023 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_137'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.174471 -0.413309 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_138'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.175198 -0.522085 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_139'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.178325 -0.625001 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_140'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.17027 -0.732613 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_141'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.16933 -0.820201 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_142'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.171814 -0.915363 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_143'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.282899 -0.103764 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_144'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.286185 -0.203006 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_145'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.283623 -0.311035 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_146'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.284593 -0.414867 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_147'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.279262 -0.522816 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_148'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.28639 -0.621898 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_149'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.281864 -0.724419 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_150'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.281882 -0.817258 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_151'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.279365 -0.912644 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_152'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.388557 -0.10228 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_153'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.390409 -0.210202 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_154'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.388424 -0.314954 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_155'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.391522 -0.40787 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_156'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.391402 -0.523159 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_157'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.38753 -0.620832 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_158'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.388493 -0.718958 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_159'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.381712 -0.812589 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <model name='QR01_clone_160'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://qr01/meshes/QR01.dae</uri>
+              <scale>0.1 0.1 0.1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0.383798 -0.91042 0 3.14159 1.57079 -3e-06</pose>
+    </model>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>-1.09013 -0.103274 1.30303 -0 0.935643 -0.071805</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+  </world>
+</sdf>

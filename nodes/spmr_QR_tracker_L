@@ -1,0 +1,245 @@
+#!/usr/bin/env python3
+
+import rospy
+import cv2
+import math
+
+from sensor_msgs.msg import Image
+from cv_bridge import CvBridge, CvBridgeError
+from pyzbar.pyzbar import decode
+import numpy as np
+
+from std_msgs.msg import Bool, String, Float32MultiArray
+
+class camera_L:
+
+    def __init__(self):
+        self.Hz = rospy.Rate(1)
+
+        self.qr_size_mm = 50
+
+        #QR 코드 위치 지정
+        # self.qr_edges = np.array([[-self.qr_size_mm/2,  -self.qr_size_mm/2, 0],    #좌 하단
+        #                          [-self.qr_size_mm/2,    self.qr_size_mm/2,  0],     #우 하단
+        #                          [self.qr_size_mm/2,     -self.qr_size_mm/2, 0],     #좌 상단
+        #                          [self.qr_size_mm/2,     self.qr_size_mm/2,  0]],    #우 상단
+        #                          dtype = 'float32').reshape((4,1,3))
+        # self.qr_edges = np.array([[-self.qr_size_mm/2,  -self.qr_size_mm/2, 0],    #좌 하단
+        #                          [-self.qr_size_mm/2,    self.qr_size_mm/2,  0],     #우 하단
+        #                          [self.qr_size_mm/2,     self.qr_size_mm/2,  0],     #우 상단
+        #                          [self.qr_size_mm/2,     -self.qr_size_mm/2, 0]],    #좌 상단
+        #                          dtype = 'float32').reshape((4,1,3))
+        self.qr_edges = np.array([[-self.qr_size_mm/2,  self.qr_size_mm/2, 0],    #우 하단
+                                 [self.qr_size_mm/2,    self.qr_size_mm/2,  0],     #우 상단
+                                 [self.qr_size_mm/2,     -self.qr_size_mm/2,  0],     #좌 상단
+                                 [-self.qr_size_mm/2,     -self.qr_size_mm/2, 0]],    #좌 하단
+                                 dtype = 'float32').reshape((4,1,3))
+        # 카메라 메트릭스 생성
+        # self.cmtx = np.array([
+        #             [964.445,    0,          970.579],
+        #             [0,          964.445,    544.970],
+        #             [0,          0,          1]])
+        cam_width = 800
+        cam_hight = 1280
+        self.cmtx = np.array([[cam_width,  0,             cam_width/2],
+                              [0,          cam_hight,     cam_hight/2],
+                              [0,          0,             1]])
+        # 카메라 비틀림 관련 메트릭스 생성 
+        self.dist = np.array([0,0,0,0,0], np.float32)
+        
+        #변수 초기화
+        # self.qr_data = 'None'
+        # self.points = np.array([[0, 0], [0, 0], [0, 0], [0, 0]], np.float32)
+
+        #콜백함수 입력 영상 설정
+        # if ("_camera_Image_raw" in in_source): # Gazevo
+        #     self.image_sub = rospy.Subscriber(in_source, Image, self.callback)
+        #     #self.img = self.cv_image
+        # elif("realsense" in in_source): # Realsense
+        #     pass
+        # else: # opencv VideoCapture
+        #     self.cap = cv2.VideoCapture(in_source)
+        #     self.re_cap, self.img = self.cap.read()
+        #self.image_sub = rospy.Subscriber("/camera_L/image_raw", Image, self.callback)
+        self.image_sub = rospy.Subscriber("/L_camera/L_camera_image_raw", Image, self.callback)
+
+        # print ("0\n")
+
+        # ROS 로깅
+        self.node_name = rospy.get_name()
+        rospy.loginfo("{0} started".format(self.node_name))
+        # 퍼블리싱 
+        self.ret_pub = rospy.Publisher('tracker_L/got_qr_coord_L', Bool, queue_size=10)
+        self.tvec_pub = rospy.Publisher('tracker_L/tvec_pub_L', Float32MultiArray, queue_size=10)
+        self.rvec_pub = rospy.Publisher('tracker_L/rvec_pub_L', Float32MultiArray, queue_size=10)
+        self.qr_data_pub = rospy.Publisher('tracker_L/qr_data_L', String, queue_size=10)
+
+        self.get_qr_coords()
+        
+        
+
+    def callback(self,data):
+        # print ("1\n")
+         self.bridge = CvBridge()
+        # print ("2\n")
+
+         try:
+            cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
+            # print ("3\n")
+         except CvBridgeError as e:
+            rospy.logerr(e)
+            print ("E\n")
+
+         (rows,cols,channels) = cv_image.shape
+        # print ("4\n")
+         self.img = cv_image
+        
+        #resized_image = cv2.resize(image, (1280, 800)) 
+
+        # gray = cv2.cvtColor(resized_image, cv2.COLOR_BGR2GRAY)
+         gray = cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY)
+         thresh = 40
+         ret, img_bw = cv2.threshold(gray, thresh, 255, cv2.THRESH_BINARY)
+        #print(ret)
+
+        # cv2.imshow("Camera Output", cv_image)
+        # cv2.imshow("B&W Image", gray)
+        # cv2.imshow("B&W Image /w threshold", img_bw)
+
+        # QR 해독 pyzbar
+         qr_result = decode(gray)
+        #  qr_result = decode(img_bw)
+        
+        #  print('_____________________________L\n',qr_result, '\n___________________________________')
+
+         
+         if len(qr_result):  # QR 인식 후
+            self.qr_data = qr_result[0].data
+            self.qr_data = self.qr_data.decode()
+            self.qr_orientation = qr_result[0].orientation
+
+            self.qr_data = self.qr_data + (' '+self.qr_orientation)
+
+            if (hasattr(qr_result[0],'polygon')): 
+                self.points = qr_result[0].polygon
+                                
+                # 수정
+                # self.points = np.append(self.points[:-1], np.array((self.points[0][0],self.points[0][1])))
+                # self.points = self.points.reshape(1,4,2)
+
+                # print ('\n', self.points, '\n\n')
+
+            else: 
+                self.points = np.array([[0, 0], [0, 0], [0, 0], [0, 0]], np.float32)
+         else : # QR 인식 실패
+            self.qr_data = None
+            self.points = np.array([[0, 0], [0, 0], [0, 0], [0, 0]], np.float32)
+        
+         if len(self.points) > 4: # QR 코드 형태 수정(다각형을 사각형으로)
+            self.points = cv2.convexHull(np.array([point for point in qr_result.polygon], dtype=np.float32))
+            self.points = list(map(tuple, np.squeeze(self.points)))
+         elif len(self.points) < 4: # QR 코드 형태 오류(사각형이 이루어지지 않을 때)
+            self.points = []
+        # #QR 해독 Open CV
+        # qr = cv2.QRCodeDetector
+        # #self.qr_data, self.points, _ = qr.detectAndDecode(img_bw)
+        # self.qr_data, self.points, straight_QR = qr.detectAndDecode(gray)  
+        # # self.points, 
+         self.points = np.array(self.points, np.float32).reshape(1,4,2)
+        # print (self.qr_data, '\n', self.points, '\n\n')
+
+         if (self.qr_data == None): # QR 코드 인식 실패
+            # self.ret_qr = []
+            self.points = []
+         else: # QR 코드 인식 성공 후 위치 계산
+            # self.get_qr_coords()
+            pass
+            
+        #  if len(qr_result):
+            
+
+    def get_qr_coords(self): # 영상 좌표계 -> amr 좌표계 # QR 코드 인식 성공 후 위치 계산
+         points = []
+         try:
+             points = self.points
+         except AttributeError:
+             points = self.points = []            
+         #OpenCV
+         while(1):
+            if (points == self.points or self.points == []):
+                ret, rvec, tvec, self.qr_data = [False, np.array([], dtype = 'float32'), np.array([], dtype = 'float32'), None]
+            else:
+                ret, rvec, tvec = cv2.solvePnP(self.qr_edges, self.points, self.cmtx, self.dist)
+                # ret, rvec, tvec = cv2.solvePnPGeneric(self.qr_edges, self.points, self.cmtx, self.dist)
+ 
+                '''if(ret):
+                        # opencv rvec
+                        ret, rvec, tvec = cv2.solvePnP(self.qr_edges, self.cv_points, self.cmtx, self.dist)'''
+                
+
+                unitv_points = np.array([[0,0,0], [self.qr_size_mm/2,0,0], [0,self.qr_size_mm/2,0], [0,0,self.qr_size_mm/2]], dtype = 'float32').reshape((4,1,3))
+                
+                axis_points, jac = cv2.projectPoints(unitv_points, rvec, tvec, self.cmtx, self.dist)
+
+                
+                colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (0,0,0)]
+
+                if len(axis_points) > 0:
+                    axis_points = axis_points.reshape((4,2))
+
+                    origin = (int(axis_points[0][0]),int(axis_points[0][1]) )
+
+                    for p, c in zip(axis_points[1:], colors[:3]):
+                        p = (int(p[0]), int(p[1]))
+
+                        #Sometimes qr detector will make a mistake and projected point will overflow integer value. We skip these cases. 
+                        if origin[0] > 5*self.img.shape[1] or origin[1] > 5*self.img.shape[1]:break
+                        if p[0] > 5*self.img.shape[1] or p[1] > 5*self.img.shape[1]:break
+
+                        cv2.line(self.img, origin, p, c, 5)
+
+                    cv2.imshow('CAM_L', self.img)
+                    #  print(origin, '\n', axis_points, '\n\n')
+
+                    k = cv2.waitKey(20)
+                    if k == 27: break #27 is ESC key.
+                
+            self.publish(ret, rvec, tvec, self.qr_data)
+
+            self.Hz.sleep()
+
+        
+    def publish(self, ret, rvec, tvec, qr_data): # ret(성공 여부), tvec(평행 이동 벡터), rvec(회전 이동 벡터), qr_data(qr 이름, 좌표 등) 퍼블리시
+         self.ret_pub.publish(ret)
+
+         tvec_msg = Float32MultiArray()
+         tvec_msg.data = tvec.flatten().tolist()
+         tvec_msg.data = tvec.reshape(-1)
+         rvec_msg = Float32MultiArray()
+         rvec_msg.data = rvec.flatten().tolist()
+         rvec_msg.data = rvec.reshape(-1)
+
+         self.tvec_pub.publish(tvec_msg)
+         self.rvec_pub.publish(rvec_msg)
+
+         self.qr_data_pub.publish(qr_data)
+
+        #  print(ret, '\n', tvec, '\n', rvec, '\n', qr_data, '\n\n')
+        #  print('\n__________________________R\n', ret, '\n', tvec, '\n', rvec, '\n__________________________\n')
+
+
+def main():
+    #  time.sleep(0.3)
+     camera_L()
+    
+	
+     try:
+         rospy.spin()
+     except KeyboardInterrupt:
+         rospy.loginfo("Shutting down")
+	
+     cv2.destroyAllWindows()
+
+if __name__ == '__main__':
+    rospy.init_node('camera_read', anonymous=False)
+    main()
