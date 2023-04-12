@@ -52,7 +52,7 @@ class camera_L:
         # self.points = np.array([[0, 0], [0, 0], [0, 0], [0, 0]], np.float32)
 
         #콜백함수 입력 영상 설정
-        # if ("_camera_Image_raw" in in_source): # Gazevo
+        # if ("_camera_Image_raw" in in_source): # gazebo
         #     self.image_sub = rospy.Subscriber(in_source, Image, self.callback)
         #     #self.img = self.cv_image
         # elif("realsense" in in_source): # Realsense
@@ -61,7 +61,12 @@ class camera_L:
         #     self.cap = cv2.VideoCapture(in_source)
         #     self.re_cap, self.img = self.cap.read()
         #self.image_sub = rospy.Subscriber("/camera_L/image_raw", Image, self.callback)
-        self.image_sub = rospy.Subscriber("/L_camera/L_camera_image_raw", Image, self.callback)
+        self.arg = 'realsense'
+
+        if self.arg == 'realsense':
+             self.image_sub = rospy.Subscriber("/camera/color/image_raw", Image, self.callback)
+        elif self.arg == 'gazebo':
+             self.image_sub = rospy.Subscriber("/L_camera/L_camera_image_raw", Image, self.callback)
 
         # print ("0\n")
 
@@ -85,6 +90,8 @@ class camera_L:
 
          try:
             cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
+            if self.arg == 'realsense':
+                cv_image = cv2.rotate(cv_image,cv2.ROTATE_90_COUNTERCLOCKWISE)
             # print ("3\n")
          except CvBridgeError as e:
             rospy.logerr(e)
@@ -198,7 +205,8 @@ class camera_L:
 
                         cv2.line(self.img, origin, p, c, 5)
 
-                    cv2.imshow('CAM_L', self.img)
+                    resized_img = cv2.resize(self.img,[400,640])
+                    cv2.imshow('CAM_L', resized_img)
                     #  print(origin, '\n', axis_points, '\n\n')
 
                     k = cv2.waitKey(20)
@@ -224,8 +232,8 @@ class camera_L:
 
          self.qr_data_pub.publish(qr_data)
 
-        #  print(ret, '\n', tvec, '\n', rvec, '\n', qr_data, '\n\n')
-        #  print('\n__________________________R\n', ret, '\n', tvec, '\n', rvec, '\n__________________________\n')
+         print(ret, '\n', tvec, '\n', rvec, '\n', qr_data, '\n\n')
+        #  print('\n__________________________L\n', ret, '\n', tvec, '\n', rvec, '\n__________________________\n')
 
 
 def main():

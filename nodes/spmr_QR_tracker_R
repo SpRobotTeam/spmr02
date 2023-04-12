@@ -52,7 +52,7 @@ class camera_R:
         # self.points = np.array([[0, 0], [0, 0], [0, 0], [0, 0]], np.float32)
 
         #콜백함수 입력 영상 설정
-        # if ("_camera_Image_raw" in in_source): # Gazevo
+        # if ("_camera_Image_raw" in in_source): # gazebo
         #     self.image_sub = rospy.Subscriber(in_source, Image, self.callback)
         #     #self.img = self.cv_image
         # elif("realsense" in in_source): # Realsense

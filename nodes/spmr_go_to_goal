@@ -11,11 +11,11 @@ from nav_msgs.msg import Odometry
 from std_msgs.msg import Float32, Bool
 
 import sys
-sys.path.append('/home/qwe/catkin_ws/src/spmr02/nodes/src')
+sys.path.append('/home/ubuntu/catkin_ws/src/spmr02/nodes/src')
+# import src.goal_controller as goal_controller
+# import src.pose as pose
 import goal_controller
 import pose
-# import goal_controller
-# import pose
 
 # from src import goal_controller
 # from src import pose
