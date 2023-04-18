@@ -230,7 +230,7 @@ class coordinate_cal:
                  if ret_L:
                      vDXL = self.tvec_L[0]
                      vDYL = self.tvec_L[1]
-                     vDTHL = self.rvec_L[1]
+                     vDTHL = self.rvec_L[-1]
                      qr_orientation_L = self.qr_data_L.split()[-1]
                  else:
                      vDXL = vDYL = vDTHL = None
@@ -248,7 +248,7 @@ class coordinate_cal:
                  if ret_R:
                      vDXR = self.tvec_R[0]
                      vDYR = self.tvec_R[1]
-                     vDTHR = self.rvec_R[1]
+                     vDTHR = self.rvec_R[-1]
                      qr_orientation_R = self.qr_data_R.split()[-1]
                  else:
                      vDXR = vDYR = vDTHR = None
@@ -294,13 +294,13 @@ class coordinate_cal:
                          else:
                              self.theta = None 
                              qr_orientation = 0
+
                          
                          if self.theta == None:
                              self.x = None
                              self.y = None
                              self.theta_degree = None
                              return True
-
 
                          else:
                              self.theta_degree = self.theta*180/math.pi
@@ -325,33 +325,66 @@ class coordinate_cal:
                                  self.temp_amr_coord.append([self.x,self.y,self.theta])
                             #  self.append_qr_coord_dict([self.qr_data_R.split()[0],self.x,self.y,self.theta,self.theta_degree])
                         
-                     else:
-                        #  if ret_R:
-                        #      qr_orientation = self.qr_orientation_set(qr_orientation_R)
-                        #      vDY = vDXR
-                        #      vDX = vDXR
-                        #      vDTH = vDTHR
+                     else: # 카메라 하나 인식
+                         if ret_R:
+                             qr_orientation = self.qr_orientation_set(qr_orientation_R)
+                             vDY = vDXR
+                             vDX = vDXR
+                             vDTH = vDTHR
                              
-                        #  elif ret_L:
-                        #      qr_orientation = self.qr_orientation_set(qr_orientation_L)
-                        #      vDY = vDXL
-                        #      vDX = vDXL
-                        #      vDTH = vDTHL
+                             
+                         elif ret_L:
+                             qr_orientation = self.qr_orientation_set(qr_orientation_L)
+                             vDY = vDXL
+                             vDX = vDXL
+                             vDTH = vDTHL
+
                          
-                        #  else:
-                        #      vDY = None
-                        #      vDX = None
-                        #      vDTH = None
-                        #      qr_orientation = None
+                         else:
+                             vDY = None
+                             vDX = None
+                             vDTH = None
+                             qr_orientation = None
 
-                        #  if qr_orientation == None:
-                        #      self.theta = None
+                         try:
+                             vL = math.sqrt(math.pow((vDX*0.8899)/1000+0.6595,2.0)+math.pow((vDY*1.4705)/1000+0,2.0))
+                         except:
+                             vL = None
 
-                         return True
+                         if qr_orientation == None:
+                             self.theta = None
+
+                         if qr_orientation == 1:
+                            qr_orientation_x_pi = 0
+                         else:
+                            qr_orientation_x_pi = qr_orientation * math.pi
+
+                         self.theta = -(vDTH + qr_orientation_x_pi)
+                         self.y = math.sin(self.theta)*vL
+                         self.x = math.cos(self.theta)*vL
+ 
+                         self.theta_degree = self.theta*180/math.pi
+                         if self.theta_degree<-180:
+                             self.theta_degree = 360+self.theta_degree
+                         if qr_orientation == 1 or -1:
+                             amr_orientation = qr_orientation
+                         else :
+                             if self.theta >= 0 :
+                                 amr_orientation = self.theta + math.pi/2
+                             else:
+                                 amr_orientation = self.theta - math.pi/2
+
+
+                         print(f'1cam_ \n{[self.x,self.y,self.theta]}')
+                         if None in [self.x,self.y,self.theta]:
+                             return True
+                         else:
+                             self.temp_amr_coord.append([self.x,self.y,self.theta])
+
 
                         #  self.publish(False)
 
-
+                         
                          # print(qr_orientation, self.theta)
 
                 
