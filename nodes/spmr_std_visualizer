@@ -7,16 +7,18 @@ from PySide6.QtCore import *
 
 import rospy
 
-import re
-import numpy as np
-import math
-import collections
-
 from std_msgs.msg import Bool, String
 from geometry_msgs.msg import PoseStamped
 
-
 import time
+import re
+import numpy as np
+import math
+import pathlib
+from datetime import datetime
+
+rectime = datetime.now()
+amr_coord_log_path = pathlib.path(f'spmr_coord_log{rectime.year[-2:]:02d}{rectime.month:02d}{rectime.day:02d}_{rectime.hour:02d}{rectime.minute:02d}.txt')
 
 class MyWindow(QMainWindow):
      def __init__(self):
@@ -100,9 +102,12 @@ class Preview(QDialog):
          self.goal_num = 1
          self.iteration = 0
 
-         self.goal_point_dict = {'01':[0,0,0], '03':[0.025,0,0], '05':[0,0,0.036216], '07':[0,0.015,math.pi/2], '09':[ -0.00312239, -0.00440463, 1.530964159]} #  {[0,0,0], [0.025,0,0], [0,0,0.036216], [0,0.015,math.pi/2], [-0.0336135,-0.0082065,1.5121545]} #  10.676689, -9.965228      9.256084, -10.018359  
-         self.goal_position = [[[0,0,0.1328],[0,0,0,0]], [[10,10,0.1328],[0,0,0,0]], [[-10,10,0.1328],[0,0,1,0]], [[-10,-10,0.1328],[0,0,0.70710678,0.70710678]], [[10,-10,0.1328],[0,0,0.70710678,0.70710678]]]
+        #  self.goal_point_dict = {'01':[0,0,0], '03':[0.025,0,0], '05':[0,0,0.036216], '07':[0,0.015,math.pi/2], '09':[ -0.00312239, -0.00440463, 1.530964159]} #  {[0,0,0], [0.025,0,0], [0,0,0.036216], [0,0.015,math.pi/2], [-0.0336135,-0.0082065,1.5121545]} #  10.676689, -9.965228      9.256084, -10.018359  
+         self.goal_point_dict = {}
+        #  self.goal_position = [[[0,0,0.1328],[0,0,0,0]], [[10,10,0.1328],[0,0,0,0]], [[-10,10,0.1328],[0,0,1,0]], [[-10,-10,0.1328],[0,0,0.70710678,0.70710678]], [[10,-10,0.1328],[0,0,0.70710678,0.70710678]]]
          
+         self.goal_position = []
+                               
          self.start_button = QPushButton("START")
 
          target_box = QVBoxLayout()
@@ -460,13 +465,18 @@ class Preview(QDialog):
 
          if self.calc_state and (self.amr_coord_val[0] and self.error_val[0] and self.std_val[0]): #  self.qr_coord_val[0] or
          #  print('enter')
+             print ('_________dict\n'+self.goal_point_dict)
+             if not len(self.goal_point_dict.keys()) or not (self.amr_coord_val[0] in self.goal_point_dict.keys()):
+                 self.goal_point_dict[self.amr_coord_val[0]] = f'{self.amr_coord_val[1:]}'
+                 print ('_________dict\n'+self.goal_point_dict)
+
              if self.amr_coord_val and (not len(self.amr_coord_list) or self.amr_coord_val != self.amr_coord_list[-1]):
-                 
                  self.amr_coord_list.append(self.amr_coord_val)
                  
-             if self.error_val and (not len(self.error_list) or self.error_val != self.error_list[-1]):
                  
+             if self.error_val and (not len(self.error_list) or self.error_val != self.error_list[-1]):
                  self.error_list.append(self.error_val)
+                 
                  
                  try:
                      self.iteration = int(self.average_error_list[list(zip(*self.average_error_list))[0].index(self.error_val[0])][1]) +1
@@ -513,8 +523,15 @@ class Preview(QDialog):
 
          if self.goal_achieved and self.calc_state:
              
+                 
              self.target_info_list.addItem("arrived at target #%02d iter#%06d."%((int(self.goal_num)), self.iteration))
+             
+             amr_coord_log_path.touch(exist_ok=True)
+             with open(amr_coord_log_path,'a',encoding='utf-8') as f:
+                 f.write(self.amr_coord_val)
+
              self.error_std_list.scrollToBottom()
+
              if self.loop:     
                  if self.goal_num >= len(list(self.goal_point_dict.keys())):
                      self.goal_num = 1
@@ -556,6 +573,7 @@ class Preview(QDialog):
          else:
              self.amr_coord_val = ''
          print('___amr\n',s)
+         rospy.loginfo(f"coord : {self.amr_coord_val}")
          
      def callback_error_val(self, data):
          s = data.data
@@ -566,6 +584,7 @@ class Preview(QDialog):
          else:
              self.error_val = ''
          print('___err\n',s)
+         rospy.loginfo(f"error : {self.error_val}")
      
      def callback_std_val(self, data):
          s = data.data
@@ -580,18 +599,23 @@ class Preview(QDialog):
      def publish(self, goal_num):
          if goal_num:
             #  target_text = "current target is target #%02d."%(int(goal_num)) going to target
-             target_text = "going to target #%02d."%(int(goal_num))
-             print(target_text)
-             self.target_info_list.addItem(target_text)
+            #  target_text = "going to target #%02d."%(int(goal_num))
+            #  print(target_text)
+
+            #  self.target_info_list.addItem(target_text)
              self.error_std_list.scrollToBottom()
 
-             self.goal_pose = PoseStamped()
-             self.goal_pose.pose.position.x, self.goal_pose.pose.position.y, self.goal_pose.pose.position.z = self.goal_position[int(goal_num)-1][0]
-             self.goal_pose.pose.orientation.x, self.goal_pose.pose.orientation.y, self.goal_pose.pose.orientation.z, self.goal_pose.pose.orientation.w = self.goal_position[int(goal_num)-1][1] 
              
-             self.go_to_goal_pub.publish(self.goal_pose)
+
+            #  self.goal_pose = PoseStamped()
+            #  self.goal_pose.pose.position.x, self.goal_pose.pose.position.y, self.goal_pose.pose.position.z = self.goal_position[int(goal_num)-1][0]
+            #  self.goal_pose.pose.orientation.x, self.goal_pose.pose.orientation.y, self.goal_pose.pose.orientation.z, self.goal_pose.pose.orientation.w = self.goal_position[int(goal_num)-1][1] 
+             
+            #  self.go_to_goal_pub.publish(self.goal_pose)
+            
          else:
-             self.go_to_goal_pub.publish(self.goal_pose)
+            #  self.go_to_goal_pub.publish(self.goal_pose)
+            pass
 
              
      def start(self):

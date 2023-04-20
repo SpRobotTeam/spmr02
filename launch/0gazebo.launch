@@ -1,53 +1,72 @@
-<!-- sudo modprobe peak_usb -->
-<!-- sudo ip link set can0 up type can bitrate 1000000 -->
-<!-- roscore -->
-<!-- rosrun spmr02 spmr_go_to_goal -->
-<!-- rosrun spmr02 spmr_canopen -->
-
-<!-- <?xml version="1.0"?> -->
 <launch>
 
-      <arg name="x_pos" default="0.0"/>
-      <arg name="y_pos" default="0.0"/>
-      <arg name="z_pos" default="1.0"/>
 
-      <arg name="ticks_per_meter" value="76.433" />
-      <arg name="wheel_separation" value="0.75" />
+  <include file="$(find spmr02)/launch/00gazebo.launch" />
+  <!-- <include file="$(find realsense2_camera)/launch/rs_t265.launch" /> -->
+  <include file="$(find sick_scan)/launch/sick_tim_581_1.launch" />
+  <include file="$(find sick_scan)/launch/sick_tim_581_2.launch" />
 
-      <include file="$(find gazebo_ros)/launch/empty_world.launch">
-            <!-- <arg name="world_name" value="$(find test_mr)/worlds/room.world"/> -->
-            <!-- <arg name="world_name" value="$(find spmr02)/worlds/0.sdf"/> -->
-            <arg name="world_name" value="$(find spmr02)/worlds/0.sdf"/>
-            <arg name="paused" value="false"/>
-            <arg name="use_sim_time" value="true"/>
-            <arg name="gui" value="true"/>
-            <arg name="headless" value="false"/>
-            <arg name="debug" value="false"/>
-      </include>  
+  <!-- camera setting -->
+
+  <arg name="serial_no_camera"    			default="911412111278"/> 			<!-- Note: Replace with actual serial number -->
+  <arg name="serial_no_camera_L"    			default="151422251950"/> 			<!-- Note: Replace with actual serial number -->
+  <!-- <arg name="serial_no_camera_R"    			default=""/> 			 -->
+  <!-- Note: Replace with actual serial number -->
+  <arg name="camera"              			default="camera"/>		<!-- Note: Replace with camera name -->
+  <arg name="camera_L"              			default="camera_L"/>		<!-- Note: Replace with camera name -->
+  <!-- <arg name="camera_R"              			default="camera_R"/>		 -->
+  <!-- Note: Replace with camera name -->
+  <arg name="tf_prefix_camera"         default="$(arg camera)"/>
+  <arg name="tf_prefix_camera_L"         default="$(arg camera_L)"/>
+  <!-- <arg name="tf_prefix_camera_R"         default="$(arg camera_R)"/> -->
+  <arg name="initial_reset"             default="false"/>
+  <arg name="reconnect_timeout"         default="6.0"/>
+  <!-- <arg name="enable_depth"              default="false"/> -->
   
-      <node pkg="gazebo_ros" 
-            type="spawn_model" 
-            name="spawn_urdf" 
-            args="-urdf 
-                  -model spmr02 
-                  -x $(arg x_pos)
-                  -y $(arg y_pos)
-                  -z $(arg z_pos)
-                  -param robot_description" />
 
-      <rosparam file="$(find spmr02)/config/controller_common.yaml" command="load"/>
-      <rosparam file="$(find spmr02)/config/pid.yaml"               command="load"/>
+  <group ns="$(arg camera)">
+    <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
+      <arg name="serial_no"             value="$(arg serial_no_camera)"/>
+      <arg name="tf_prefix"         		value="$(arg tf_prefix_camera)"/>
+      <arg name="initial_reset"         value="$(arg initial_reset)"/>
+      <arg name="reconnect_timeout"     value="$(arg reconnect_timeout)"/>
+      
+    </include>
+  </group>
 
-      <param name="robot_description" textfile="$(find spmr02)/urdf/spmr02.urdf" />
-  
-      <node name="spmr_go_to_goal" pkg="spmr02" type="spmr_go_to_goal" 
-            respawn="true" output="screen"/>  
-      <node name="spmr_controller" pkg="spmr02" type="spmr_controller" 
-            respawn="true" output="screen"/>  
-      <!-- <node name="spmr_PathFind" pkg="spmr02" type="spmr_PathFind" 
-            respawn="true" output="screen"/>   -->
-      <!-- <node name="spmr_canopen" pkg="spmr02" type="spmr_canopen" 
-            respawn="true" output="screen"/>   -->
+  <group ns="$(arg camera_L)">
+    <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
+      <arg name="serial_no"             value="$(arg serial_no_camera_L)"/>
+      <arg name="tf_prefix"		          value="$(arg tf_prefix_camera_L)"/>
+      <arg name="initial_reset"         value="$(arg initial_reset)"/>
+      <!-- <arg name="enable_depth"          value="false"/> -->
+      <arg name="reconnect_timeout"     value="$(arg reconnect_timeout)"/>
+    </include>
+  </group>
+
+  <!-- <group ns="$(arg camera_R)" if="$(eval serial_no_camera_R != '')">
+    <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
+      <arg name="serial_no"             value="$(arg serial_no_camera_R)"/>
+      <arg name="tf_prefix"		          value="$(arg tf_prefix_camera_R)"/>
+      <arg name="initial_reset"         value="$(arg initial_reset)"/>
+      <arg name="enable_depth"          value="false"/>
+      <arg name="reconnect_timeout"     value="$(arg reconnect_timeout)"/>
+    </include> 
+  </group>-->
+
+  <!-- end of camera setting -->
+
+  <!-- <node name="spmr_canopen" pkg="spmr02" type="spmr_canopen" /> -->
+  <node name="tf_pub" pkg="spmr02" type="tf_pub_7_2.py" />
+
+  <!-- <node name="node1" pkg="spmr02" type="spmr_canopen"  args="arg1 arg2" /> -->
+  <!-- <node name="node2" pkg="spmr02" type="tf_pub_7_2.py" args="$(arg my_arg)" /> -->
+  <!-- <rosparam file="$(find package1)/config/params.yaml" command="load" /> -->
+
+  <node pkg="topic_tools" type="relay" name="f_scan_relay" args="sick_tim_581_1/scan scan"/>
+  <node pkg="topic_tools" type="relay" name="b_scan_relay" args="sick_tim_581_2/scan scan"/>
+
+</launch>
 
       <node name="spmr_QR_tracker_L" pkg="spmr02" type="spmr_QR_tracker_L" 
             respawn="true" output="screen"/>  
