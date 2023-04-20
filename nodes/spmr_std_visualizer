@@ -333,7 +333,7 @@ class Preview(QDialog):
              average_error_list = []
              for target in self.target_list :
                  try:
-                     average_error_list.append([self.average_error_list[i] for i in range(len(self.average_error_list)) if self.average_error_list[i][0] == str('%02d'%(target*2+1))]) #  !
+                     average_error_list.append([self.average_error_list[i] for i in range(len(self.average_error_list)) if self.average_error_list[i][0][0] == str('%02d'%(target*2+1))]) #  !
                  except Exception as e:
                      print(f'error on target #{target}: ',e)
                      pass
