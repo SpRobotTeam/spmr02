@@ -33,5 +33,14 @@ generate_messages (
 )
 
 catkin_package(
-  CATKIN_DEPENDS actionlib_msgs
+  CATKIN_DEPENDS 
+  actionlib_msgs
+  rospy
+  std_msgs
+  nav_msgs
+  geometry_msgs
+  tf
+  tf2
+  actionlib
+  actionlib_msgs
 )

@@ -11,7 +11,7 @@ from nav_msgs.msg import Odometry
 from std_msgs.msg import Float32, Bool
 
 import sys
-sys.path.append('/home/tang/catkin_ws/src/spmr02/nodes/src')
+sys.path.append('/home/tang4/catkin_ws/src/spmr02/nodes/src/')
 import goal_controller
 import pose
 
@@ -19,7 +19,7 @@ import pose
 # from src import pose
 
 import actionlib
-from diff_drive.msg import GoToPoseAction, GoToPoseGoal, GoToPoseResult
+from spmr02.msg import GoToPoseAction, GoToPoseGoal, GoToPoseResult
 
 class GoToGoalNode:
 

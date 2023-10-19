@@ -9,7 +9,7 @@
       <arg name="wheel_separation" value="0.566" />
 
       <include file="$(find gazebo_ros)/launch/empty_world.launch">
-            <arg name="world_name" value="$(find test_mr)/worlds/room.world"/>
+            <arg name="world_name" value="$(find spmr02)/worlds/room.world"/>
             <arg name="paused" value="false"/>
             <arg name="use_sim_time" value="true"/>
             <arg name="gui" value="true"/>
@@ -32,11 +32,11 @@
 
       <param name="robot_description" textfile="$(find spmr02)/urdf/spmr02.urdf" />
   
-      <!-- <node name="spmr_go_to_goal" pkg="spmr02" type="spmr_go_to_goal" 
+      <node name="spmr_go_to_goal" pkg="spmr02" type="spmr_go_to_goal" 
             respawn="true" output="screen"/>  
       <node name="spmr_controller" pkg="spmr02" type="spmr_controller" 
             respawn="true" output="screen"/>  
-      <node name="spmr_PathFind" pkg="spmr02" type="spmr_PathFind" 
+      <!-- <node name="spmr_PathFind" pkg="spmr02" type="spmr_PathFind" 
             respawn="true" output="screen"/>   -->
       <!-- <node name="spmr_canopen" pkg="spmr02" type="spmr_canopen" 
             respawn="true" output="screen"/>   -->
